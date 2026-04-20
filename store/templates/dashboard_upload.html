@@ -1,0 +1,250 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Product</title>
+    <style>
+        #preview{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+
+    #preview img{
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        padding: 3px;
+        border-radius: 6px;
+    }
+
+    </style>
+</head>
+<body>
+
+<h2>Upload Product</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" name="title" placeholder="Product Title" required><br><br>
+
+    <textarea name="description" placeholder="Description"></textarea><br><br>
+
+    <input type="number" step="0.01" name="price" placeholder="Price"><br><br>
+
+    <input type="number" step="0.01" name="old_price" placeholder="Old Price"><br><br>
+
+    <input type="number" name="stock" placeholder="Stock"><br><br>
+
+    <select name="category">
+        <option value="">Select Category</option>
+        {% for cat in categories %}
+        <option value="{{cat.category_id}}">{{cat.name}}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Main Image</label><br>
+    <input type="file" name="main_image"><br><br>
+
+    <label>Extra Images</label><br>
+
+     <input type="file" name="extra_images" id="extra_images" multiple>
+    <br><br>
+    <div id="preview"></div>
+
+    <button type="submit">Upload Product</button>
+
+</form>
+
+<script>
+document.getElementById("extra_images").addEventListener("change", function() {
+    const preview = document.getElementById("preview");
+
+    Array.from(this.files).forEach(file => {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            preview.appendChild(img);
+        }
+
+        reader.readAsDataURL(file);
+    });
+
+    this.value = "";
+});
+</script>
+
+
+</body>
+</html>  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .form-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 300px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+#preview {
+    display: flex;
+    flex-direction: row; /* Forces images to align left-to-right */
+    flex-wrap: wrap;     /* Wraps to the next line if there's not enough room */
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#preview img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    padding: 3px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Added a slight shadow for better appearance */
+}
+    </style>
+</head>
+<body>
+
+    <h1>Store Admin Dashboard</h1>
+
+    <div class="container">
+        
+        <div class="form-section">
+            <h2>Add New Category</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="category">
+
+                <label>Category Name</label>
+                <input type="text" name="category_name" placeholder="Enter Category Name" required>
+
+                <label>Category Image</label><br><br>
+                <input type="file" name="category_image" accept="image/*"><br><br>
+
+                <button type="submit">Upload Category</button>
+            </form>
+        </div>
+
+
+        <div class="form-section">
+            <h2>Add New Product</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="product">
+
+                <label>Product Title</label>
+                <input type="text" name="title" placeholder="Product Title" required>
+
+                <label>Description</label>
+                <textarea name="description" placeholder="Description" rows="4"></textarea>
+
+                <label>Price</label>
+                <input type="number" step="0.01" name="price" placeholder="0.00" required>
+
+                <label>Old Price (Optional)</label>
+                <input type="number" step="0.01" name="old_price" placeholder="0.00">
+
+                <label>Stock Quantity</label>
+                <input type="number" name="stock" placeholder="0" required>
+
+                <label>Category</label>
+                <select name="category" required>
+                    <option value="">-- Select Category --</option>
+                    {% for cat in categories %}
+                    <option value="{{cat.category_id}}">{{cat.name}}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Main Image</label><br><br>
+                <input type="file" name="main_image" accept="image/*" required><br><br>
+
+                <label>Extra Images</label><br><br>
+                <input type="file" name="extra_images" id="extra_images" accept="image/*" multiple>
+                
+                <div id="preview"></div>
+
+                <button type="submit">Upload Product</button>
+            </form>
+        </div>
+
+    </div>
+<script>
+let allFiles = [];
+
+document.getElementById("extra_images").addEventListener("change", function() {
+    const preview = document.getElementById("preview");
+
+    Array.from(this.files).forEach(file => {
+        allFiles.push(file);
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            preview.appendChild(img);
+        }
+
+        reader.readAsDataURL(file);
+    });
+
+    // rebuild input file list
+    const dataTransfer = new DataTransfer();
+    allFiles.forEach(file => dataTransfer.items.add(file));
+    this.files = dataTransfer.files;
+});
+</script>
+
+</body>
+</html>

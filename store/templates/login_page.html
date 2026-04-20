@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gnapika Stores | Join the Elegance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+    :root {
+      --gold: #D4AF37;
+      --glass: rgba(15, 15, 15, 0.9);
+      --error: #ef4444;
+      --success: #22c55e;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #050505;
+      color: #f3f3f3;
+      overflow-x: hidden;
+    }
+
+    .brand-font {
+      font-family: 'Cinzel', serif;
+    }
+
+    @keyframes containerEntrance {
+      0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+        filter: blur(5px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    .animate-entrance {
+      animation: containerEntrance 0.8s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+    }
+
+    /* Input Styling */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .gnapika-input {
+      width: 100%;
+      padding: 1.4rem 1rem 0.6rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      border-radius: 14px;
+      color: white;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    /* Validation States */
+    .gnapika-input.valid {
+      border-color: var(--success);
+      background: rgba(34, 197, 94, 0.05);
+    }
+
+    .gnapika-input.invalid {
+      border-color: var(--error);
+      background: rgba(239, 68, 68, 0.05);
+    }
+
+    .gnapika-input:focus:not(.valid):not(.invalid) {
+      border-color: var(--gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+    }
+
+    .floating-label {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      color: #777;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .gnapika-input:focus~.floating-label,
+    .gnapika-input:not(:placeholder-shown)~.floating-label {
+      top: 0.4rem;
+      font-size: 0.6rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* Password Eye Toggle */
+    .eye-icon {
+      position: absolute;
+      right: 1rem;
+      top: 1.1rem;
+      color: #555;
+      cursor: pointer;
+      transition: color 0.3s;
+      z-index: 10;
+    }
+
+    .eye-icon:hover {
+      color: var(--gold);
+    }
+
+    .btn-luxury {
+      background: linear-gradient(135deg, #D4AF37 0%, #B8963E 100%);
+      color: #1a1a1a;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .btn-luxury:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+    }
+
+    .btn-luxury:active {
+      transform: translateY(0);
+    }
+
+    .glass-card {
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error-text {
+      color: #ff4d4d;
+      /* Soft red */
+      font-size: 0.75rem;
+      margin-top: 4px;
+      height: 1rem;
+      /* Prevents layout jumping */
+      transition: opacity 0.3s ease;
+    }
+
+    .input-error {
+      border-color: #ff4d4d !important;
+    }
+
+    /* Animation for the success alert */
+    .fade-in {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    /* Initial hidden state with a slight "up" position */
+    #js-success-alert {
+      opacity: 0;
+      transform: translateY(-10px);
+      display: none;
+      /* We will switch this to 'block' in JS */
+    }
+
+    /* Show class to trigger the animation */
+    #js-success-alert.show {
+      display: block;
+    }
+
+    .error-text {
+      color: #ff4d4d;
+      font-size: 11px;
+      margin-top: 6px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      animation: fadeInError 0.3s ease-out;
+    }
+
+    @keyframes fadeInError {
+      from {
+        opacity: 0;
+        transform: translateY(-3px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .password-rules {
+      font-size: 0.9rem;
+      /* slightly smaller text */
+      color: #555555;
+      /* dark gray color for readability */
+      margin-top: 4px;
+      /* small space below input field */
+      display: block;
+      /* ensures it takes full width below input */
+      font-family: Arial, sans-serif;
+      /* clean font */
+    }
+
+    .password-rules strong {
+      color: #d32f2f;
+      /* highlight important parts in red */
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6">
+  <div class="fixed inset-0 z-[-1]">
+    <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-red-900/10 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-yellow-700/10 rounded-full blur-[120px]"></div>
+  </div>
+
+  <div class="max-w-md w-full glass-card rounded-[40px] p-8 md:p-10 animate-entrance">
+
+    <div class="text-center mb-10">
+      <h1 class="brand-font text-4xl font-bold tracking-[0.3em] text-[#D4AF37]">GNAPIKA</h1>
+      <p class="brand-font text-[15px] tracking-[0.5em] text-zinc-500 mt-2 uppercase">Stores</p>
+    </div>
+
+    <div id="js-success-alert"
+      class="bg-emerald-50/10 border border-emerald-500/50 text-emerald-500 px-4 py-3 rounded-2xl mb-6 text-center text-sm shadow-xl backdrop-blur-md"
+      style="display: none; opacity: 0; transform: translateY(-10px); transition: all 0.4s ease;">
+      <i class="fas fa-check-circle mr-2"></i>
+      <span id="success-message-text"></span>
+    </div>
+
+    <form id="login-form" class="space-y-4" method="post"> {% csrf_token%}
+      <div class="input-wrapper">
+        <input type="text" id="login-id" class="gnapika-input" placeholder=" " name="email" required>
+        <label class="floating-label">Email or Phone</label>
+        {% for message in messages %}
+        {% if 'login_id' in message.tags %}
+        <div class="error-text text-red-500 text-xs mt-1">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="input-wrapper">
+        <input type="password" id="login-pass" class="gnapika-input" placeholder=" " name="password" required>
+        <label class="floating-label">Password</label>
+        <i class="fas fa-eye eye-icon" onclick="togglePassword('login-pass', this)"></i>
+        {% for message in messages %}
+        {% if 'login_pass' in message.tags %}
+        <div class="error-text text-red-500 text-xs mt-1">{{ message }}</div>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="btn-luxury w-full py-4 rounded-2xl text-sm mt-4">Sign In</button>
+    </form>
+
+    <form id="signup-form" class="space-y-4 hidden">
+      <div class="input-wrapper">
+        <input type="text" id="reg-name" class="gnapika-input" placeholder=" " required>
+        <label class="floating-label">Full Name</label>
+      </div>
+
+      <div class="input-wrapper">
+        <input type="email" id="reg-email" class="gnapika-input" placeholder=" " required oninput="validateEmail(this)">
+        <label class="floating-label">Email Address</label>
+        <span id="email-error" class="text-red-500 text-xs mt-1 block"></span>
+      </div>
+
+      <div class="input-wrapper">
+        <input type="tel" id="reg-phone" class="gnapika-input" placeholder=" " required oninput="validatePhone(this)">
+        <label class="floating-label">Phone Number</label>
+        <span id="phone-error" class="text-red-500 text-xs mt-1 block"></span>
+      </div>
+
+      <div class="input-wrapper">
+        <input type="password" id="reg-pass" class="gnapika-input" placeholder=" " required
+          oninput="validatePassword(this)">
+        <label class="floating-label">Create Password</label>
+        <i class="fas fa-eye eye-icon" onclick="togglePassword('reg-pass', this)"></i>
+      </div>
+      <span class="password-rules">Password must be at least 8 characters, include a letter, a number, and a special
+        character (@$!%*#?&).</span>
+
+      <button type="submit" class="btn-luxury w-full py-4 rounded-2xl text-sm mt-4">Create Account</button>
+    </form>
+
+    <div class="relative flex items-center py-8">
+      <div class="flex-grow border-t border-zinc-800"></div>
+      <span class="mx-4 text-[9px] text-zinc-600 font-bold tracking-[2px]">OR</span>
+      <div class="flex-grow border-t border-zinc-800"></div>
+    </div>
+
+    <p class="text-center text-xs text-zinc-500">
+      <span id="switch-text">New to Gnapika Stores?</span>
+      <button onclick="toggleAuth()" id="switch-btn"
+        class="text-[#D4AF37] font-bold ml-1 hover:underline underline-offset-4">Join Now</button>
+    </p>
+  </div>
+
+  <script>
+
+    let isLogin = true;
+
+    // --- Toggle Password Visibility ---
+    function togglePassword(inputId, icon) {
+      const input = document.getElementById(inputId);
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = "password";
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    }
+
+
+
+    // --- Real-time Validation ---
+    // function validateEmail(input) {
+    //   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //   applyValidationStyle(input, regex.test(input.value));
+    // }
+
+
+    function validateEmail(input) {
+      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const validTLDs = ["com", "org", "net", "in", "edu", "gov"];
+      const match = input.value.match(/\.(\w+)$/);
+      const tldValid = match && validTLDs.includes(match[1].toLowerCase());
+      const isValid = regex.test(input.value) && tldValid;
+      applyValidationStyle(input, isValid);
+    }
+
+
+    // function validatePhone(input) {
+    //   const regex = /^[6-9]\d{9}$/; // Indian standard: 10 digits starting with 6-9
+    //   applyValidationStyle(input, regex.test(input.value));
+    // }
+    function isSequentialOrRepeated(num) {
+      // Check if all digits are the same
+      if (/^(\d)\1+$/.test(num)) return true;
+
+      // Check ascending sequence
+      const ascending = "0123456789";
+      if (ascending.includes(num)) return true;
+
+      // Check descending sequence
+      const descending = "9876543210";
+      if (descending.includes(num)) return true;
+
+      return false; // valid
+    }
+
+    function validatePhone(input) {
+      const regex = /^[6-9]\d{9}$/; // 10 digits starting with 6-9
+      const value = input.value.trim();
+
+      // Check regex + sequential/repeated numbers
+      const isValid = regex.test(value) && !isSequentialOrRepeated(value);
+
+      applyValidationStyle(input, isValid);
+    }
+
+
+    function applyValidationStyle(input, isValid) {
+      if (input.value === "") {
+        input.classList.remove('valid', 'invalid');
+      } else if (isValid) {
+        input.classList.add('valid');
+        input.classList.remove('invalid');
+      } else {
+        input.classList.add('invalid');
+        input.classList.remove('valid');
+      }
+    }
+
+    function validatePassword(input) {
+      const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      applyValidationStyle(input, regex.test(input.value));
+    }
+
+    // --- Switch between Login/Signup ---
+    function toggleAuth() {
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const switchBtn = document.getElementById('switch-btn');
+      const switchText = document.getElementById('switch-text');
+
+      // Reset all inputs on switch
+      document.querySelectorAll('.gnapika-input').forEach(el => {
+        el.value = "";
+        el.classList.remove('valid', 'invalid');
+      });
+
+      if (isLogin) {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+        switchBtn.innerText = "Sign In";
+        switchText.innerText = "Already a Member?";
+      } else {
+        signupForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        switchBtn.innerText = "Join Now";
+        switchText.innerText = "New to Gnapika Stores?";
+      }
+      isLogin = !isLogin;
+    }
+
+    // --- Handle Form Submissions ---
+    document.getElementById('signup-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('reg-name');
+      const emailInput = document.getElementById('reg-email');
+      const phoneInput = document.getElementById('reg-phone');
+      const passInput = document.getElementById('reg-pass');
+      // Run validation
+      validateEmail(emailInput);
+      validatePhone(phoneInput);
+      validatePassword(passInput);
+      // Check if any field is invalid
+      if (
+        emailInput.classList.contains('invalid') ||
+        phoneInput.classList.contains('invalid') ||
+        passInput.classList.contains('invalid') ||
+        nameInput.value.trim() === ""
+      ) {
+        alert("Please fix the highlighted fields before submitting.");
+        return; // stop submission
+      }
+
+
+      // Implement AJAX signup logic here
+      document.getElementById('email-error').innerText = "";
+      document.getElementById('phone-error').innerText = "";
+      const data = {
+        fullName: document.getElementById('reg-name').value,
+        email: document.getElementById('reg-email').value,
+        phone: document.getElementById('reg-phone').value,
+        password: document.getElementById('reg-pass').value,
+        timestamp: new Date().toLocaleString()
+      };
+      // After successful signup, switch to login form
+      fetch("/signup/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getcookies("csrftoken")
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const alertBox = document.getElementById('js-success-alert');
+            const alertText = document.getElementById('success-message-text');
+            alertText.innerText = data.message;
+            alertBox.style.display = 'block';
+            setTimeout(() => {
+              alertBox.style.opacity = '1';
+              alertBox.style.transform = 'translateY(0)';
+            }, 10);
+            toggleAuth();
+            // Clear signup form fields
+            document.getElementById('reg-name').value = "";
+            document.getElementById('reg-email').value = "";
+            document.getElementById('reg-phone').value = "";
+            document.getElementById('reg-pass').value = "";
+            setTimeout(() => {
+              alertBox.style.opacity = '0';
+              alertBox.style.transform = 'translateY(-10px)';
+
+              // Hide completely after the transition finishes (400ms)
+              setTimeout(() => {
+                alertBox.style.display = 'none';
+              }, 400);
+            }, 5000);
+
+          } else {
+            if (data.error.includes("email")) {
+              document.getElementById('email-error').innerText = data.error;
+              document.getElementById('reg-email').focus();
+            } else if (data.error.includes("phone")) {
+              document.getElementById('phone-error').innerText = data.error;
+              document.getElementById('reg-phone').focus();
+            }
+            else {
+              alert(data.error); // Fallback for general errors
+            }
+          }
+        })
+
+        .catch(error => {
+          console.error("Error:", error);
+          alert("An unexpected error occurred. Please try again.");
+        });
+
+
+      function getcookies(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    });
+
+
+
+  </script>
+</body>
+
+</html>

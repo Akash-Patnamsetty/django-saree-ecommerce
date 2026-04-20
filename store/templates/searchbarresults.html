@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+    body{
+        background-color: #000;
+    }
+            /* 1. Layout: Side-by-Side (2 columns) */
+        .product-grid {
+            display: grid;
+               grid-template-columns: repeat(2, minmax(0, 1fr));
+            /* grid-template-columns: 1fr 1fr; */
+            /* Force 2 columns on mobile */
+            gap: 12px;
+            padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color:black;
+
+        }
+
+    @media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+        padding: 4px;
+    }
+
+    .product-card {
+        width: 100%;
+        min-width: 0;
+        padding: 4px;
+    }
+
+    .product-card img {
+        height: 100px;   /* reduce image size */
+        object-fit: cover;
+    }
+
+    .product-card h3 {
+        font-size: 12px;  /* smaller text */
+    }
+
+    .product-card p {
+        font-size: 11px;
+    }
+}
+
+        @media (min-width: 768px) {
+            .product-grid {
+                gap: 25px;
+                /* More space on Desktop */
+                padding: 40px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(4, 1fr);
+                /* 4 products per row */
+                gap: 25px;
+                padding: 40px;
+                max-width: 1200px;
+                margin: 0 auto;
+                /* Centers the grid on large screens */
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .product-grid {
+                display: grid;
+                /* Keeps 6 products but lets them grow to fill the screen */
+                grid-template-columns: repeat(5, 1fr);
+                /* Remove extra side space */
+                padding: 20px;
+                max-width: 98%;
+                /* Uses almost the entire screen width */
+                margin: 0 auto;
+
+                /* Increase space between cards slightly for a premium feel */
+                gap: 15px;
+
+            }
+        }
+
+        /* 2. Card Styling */
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s ease;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border: 3px solid gold;
+        }
+
+        .img-container {
+            width: 100%;
+            aspect-ratio: 3/4;
+            /* Keeps saree images tall and consistent */
+            overflow: hidden;
+            background: #f9f9f9;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    
+        /* 3. Like Button (Amazon style) */
+        .like-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 5;
+            color: #ccc;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .like-btn.liked {
+            color: #ff4757;
+            transform: scale(1.2);
+        }
+
+        /* 4. Text & Content */
+        .product-info {
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 0.9rem;
+            margin: 0 0 5px 0;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-desc {
+            font-size: 0.75rem;
+            color: #777;
+            margin-bottom: 8px;
+            height: 32px;
+            /* Fixed height for 2 lines */
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .price-row {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #000;
+            font-size: 1rem;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* 5. Cart Button */
+    
+        .cart-btn {
+            background: #ffd814;
+            border: none;
+            border-radius: 20px;
+            padding: 8px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Smooth bounce */
+        }
+
+        .cart-btn.added {
+            background-color: #2ecc71;
+            /* Success Green */
+            color: white;
+            transform: scale(1.05);
+            /* Slight grow to show action */
+        }
+
+        .cart-btn:active {
+            background: #f7ca00;
+            transform: scale(0.9);
+        }
+
+        .cart-btn:hover:not(.added) {
+            background: #f7ca00;
+            transform: translateY(-2px);
+        }
+
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        a {
+            text-decoration: none;
+        }
+                nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            border-bottom: 1px solid rgba(179, 139, 69, 0.1);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* State for hidden navbar */
+        .nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+  </style>
+</head>
+<body>
+
+        <nav id="navbar">
+        {% include "base.html" %}
+        {% block content %}
+        {% endblock %}
+    </nav>
+    
+<br><br><br> <br>
+
+
+<h3 style="color:green">Results for :-"{{ query }}"</h3>
+<!-- Categories -->
+{% if categories %}
+<div class="category-list">
+    {% for category in categories %}
+        <div class="category-item" style="color: #2ecc71;">
+            
+        </div>
+        <h3 style="color: white">Categories:- <span style="color: gold;">{{ category.name }}</span> </h3>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+
+    <div class="product-grid">
+        <!-- django template code for home page, mainly for testing purpose -->
+        {% for p in products %}
+        <div class="reveal">
+            <div class="product-card">
+                {% if request.session.user_id %}
+                <button class="like-btn {% if p.is_liked %}liked{% endif %}" data-product-id="{{ p.pk }}">❤</button>
+                {% else %}
+                <button class="like-btn" id="like"><a href="{% url 'login' %}"
+                        style="text-decoration: none;">❤</a></button>
+                {% endif %}
+
+                <div class="img-container">
+
+                    <a href="/product/{{ p.pk }}/">
+                        <img src="/media/{{p.image}}" alt="{{ p.title }}">
+                    </a>
+                </div>
+                <div class="product-info">
+                    <a href="/product/{{ p.pk }}/">
+                        <h3 class="product-title">{{ p.title }}</h3>
+                    </a>
+                    <p class="product-desc">{{ p.description }}</p>
+                    <div class="price-row">
+                        {% if p.old_price %}
+                        <span class="price">₹{{ p.price }}</span>
+                        <span class="old-price">₹{{ p.old_price }}</span>
+                        {% else %}
+                        <span class="price">₹{{ p.price }}</span>
+                        {% endif %}
+                    </div>
+                    {% if request.session.user_id %}
+                    <!-- <button class="cart-btn" onclick="addToCart(this)" data-product-id="{{ p.id }}">Add to Cart</button> -->
+
+                    <button class="cart-btn {% if p.is_in_cart %}added{% endif %}" onclick="addToCart(this)"
+                        data-product-id="{{ p.pk }}">
+                        {% if p.is_in_cart %}
+                        ✓ Added
+                        {% else %}
+                        Add to Cart
+                        {% endif %}
+                    </button>
+                    {% else %}
+                    <button class="cart-btn" onclick="handleCartClick()"> <a href="/login/">Add to Cart</a> </button>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+    <script>
+        function addToCart(btn) {
+            const productId = btn.dataset.productId;
+            console.log("Product ID:", productId, "user_id:", {{ request.session.user_id }}); // Debugging line
+        const isAdding = !btn.classList.contains('added');
+
+        // 1. UI Animation (Immediate feedback)
+        if (isAdding) {
+            btn.classList.add('added');
+            btn.innerHTML = '✓ Added';
+        } else {
+            btn.classList.remove('added');
+            btn.innerHTML = 'Add to Cart';
+        }
+        // 2. Backend Update (Simulated with a timeout here, replace with actual API call)
+        fetch(`/add_to_cart/${productId}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                action: isAdding ? "add" : "remove"
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response:", data);
+
+                if (!data.success) {
+                    // revert UI if backend failed
+                    btn.classList.remove('added');
+                    btn.innerHTML = 'Add to Cart';
+                }
+            })
+
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+
+
+        // Keeping your Intersection Observer logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+                else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // like ajax request to backend to save liked products for logged in users, and also to remove from liked products if already liked. This will be done using fetch API and Django views to handle the request and update the database accordingly.
+
+        const likeBtns = document.querySelectorAll('.like-btn');
+        likeBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const productId = this.dataset.productId;
+                const button = this;
+                fetch(`/like/${productId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            button.classList.toggle('liked');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+
+            });
+        });
+
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --black: #000000;
+            --zinc: #18181b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+            background-color: var(--black);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+        }
+
+        /* Header Styling */
+        .collection-header {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .subtitle {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .gold-gradient-text {
+            font-size: 42px;
+            margin: 10px 0;
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .gold-divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 20px auto;
+            opacity: 0.5;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s ease;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border: 3px solid gold;
+        }
+
+        .img-container {
+            width: 100%;
+            aspect-ratio: 3/4;
+            /* Keeps saree images tall and consistent */
+            overflow: hidden;
+            background: #f9f9f9;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: black;
+
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 4px;
+                padding: 4px;
+            }
+
+            .product-card {
+                width: 100%;
+                min-width: 0;
+                padding: 4px;
+            }
+
+        }
+
+        @media (min-width: 768px) {
+                .product-grid {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+                gap: 4px;
+                padding: 4px;
+                max-width: 100%;
+            }
+
+            .product-card {
+                width: 100%;
+                min-width: 0;
+                padding: 4px;
+            }
+
+            .product-card img {
+                height: 100px;
+                /* reduce image size */
+                object-fit: cover;
+            }
+
+            .product-card h3 {
+                font-size: 12px;
+                /* smaller text */
+            }
+
+            .product-card p {
+                font-size: 11px;
+            }
+  
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s ease;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border: 3px solid gold;
+        }
+
+        .img-container {
+            width: 100%;
+            aspect-ratio: 3/4;
+            /* Keeps saree images tall and consistent */
+            overflow: hidden;
+            background: #f9f9f9;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    
+
+        @media (min-width: 1440px) {
+            .product-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 25px;
+                padding: 4px;
+                max-width: 100%;
+            }
+
+            .product-card {
+                width: 100%;
+                min-width: 0;
+                padding: 4px;
+            }
+
+            .product-card img {
+                height: 100%;
+                /* reduce image size */
+                object-fit: cover;
+            }
+
+            .product-card h3 {
+                font-size: 12px;
+                /* smaller text */
+            }
+
+            .product-card p {
+                font-size: 11px;
+            }
+        }
+
+        /* 3. Like Button (Amazon style) */
+        .like-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 5;
+            color: #ccc;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .like-btn.liked {
+            color: #ff4757;
+            transform: scale(1.2);
+        }
+
+        /* 4. Text & Content */
+        .product-info {
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 0.9rem;
+            margin: 0 0 5px 0;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-desc {
+            font-size: 0.75rem;
+            color: #777;
+            margin-bottom: 8px;
+            height: 32px;
+            /* Fixed height for 2 lines */
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .price-row {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #000;
+            font-size: 1rem;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* 5. Cart Button */
+        .cart-btn {
+            background: #ffd814;
+            border: none;
+            border-radius: 20px;
+            padding: 8px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Smooth bounce */
+        }
+
+        .cart-btn.added {
+            background-color: #2ecc71;
+            /* Success Green */
+            color: white;
+            transform: scale(1.05);
+            /* Slight grow to show action */
+        }
+
+        .cart-btn:active {
+            background: #f7ca00;
+            transform: scale(0.9);
+        }
+
+        .cart-btn:hover:not(.added) {
+            background: #f7ca00;
+            transform: translateY(-2px);
+        }
+
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            border-bottom: 1px solid rgba(179, 139, 69, 0.1);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* State for hidden navbar */
+        .nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ===== SHOW MORE WRAPPER ===== */
+        .show-more-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0 40px;
+            padding: 0 10px;
+        }
+
+        /* ===== BUTTON STYLE ===== */
+        #load-more-btn {
+            background: #000;
+            color: #fff;
+            border: 1px solid #000;
+            padding: 12px 28px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            min-width: 180px;
+        }
+
+        /* ===== HOVER EFFECT ===== */
+        #load-more-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* ===== ACTIVE CLICK EFFECT ===== */
+        #load-more-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ===== LOADING STATE (optional) ===== */
+        #load-more-btn.loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width:768px) {
+            .show-more-wrapper {
+                margin: 15px 0 30px;
+            }
+
+            #load-more-btn {
+                width: 100%;
+                padding: 14px;
+                font-size: 13px;
+            }
+        }
+
+        /* ===== TABLET ===== */
+        @media (min-width:769px) and (max-width:1023px) {
+            #load-more-btn {
+                padding: 13px 32px;
+            }
+        }
+
+        /* ===== DESKTOP ===== */
+        @media (min-width:1024px) {
+            #load-more-btn {
+                padding: 14px 36px;
+                font-size: 14px;
+            }
+        }
+
+        /* ===== LARGE SCREENS ===== */
+        @media (min-width:1440px) {
+            #load-more-btn {
+                padding: 15px 42px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navbar">
+        {% include "base.html" %}
+        {% block content %}
+        {% endblock %}
+    </nav>
+    <div class="collection-header">
+        <span class="subtitle">Exclusive Collection</span>
+        <h3 class="gold-gradient-text">{{category.name}}</h3>
+        <div class="gold-divider"></div>
+    </div>
+
+    <div class="product-grid" id="product-container">
+        <!-- django template code for home page, mainly for testing purpose -->
+        {% for p in products %}
+        <div class="reveal">
+            <div class="product-card">
+                {% if request.session.user_id %}
+                <button class="like-btn {% if p.is_liked %}liked{% endif %}" data-product-id="{{ p.id }}">❤</button>
+                {% else %}
+                <button class="like-btn" id="like"><a href="{% url 'login' %}"
+                        style="text-decoration: none;">❤</a></button>
+                {% endif %}
+
+                <div class="img-container">
+
+                    <a href="/product/{{ p.id }}/">
+                        <img src="/media/{{p.image}}" alt="{{ p.title }}">
+                    </a>
+                </div>
+                <div class="product-info">
+                    <a href="/product/{{ p.id }}/">
+                        <h3 class="product-title">{{ p.title }}</h3>
+                    </a>
+                    <p class="product-desc">{{ p.description }}</p>
+                    <div class="price-row">
+                        {% if p.old_price %}
+                        <span class="price">₹{{ p.price }}</span>
+                        <span class="old-price">₹{{ p.old_price }}</span>
+                        {% else %}
+                        <span class="price">₹{{ p.price }}</span>
+                        {% endif %}
+                    </div>
+                    {% if request.session.user_id %}
+                    <!-- <button class="cart-btn" onclick="addToCart(this)" data-product-id="{{ p.id }}">Add to Cart</button> -->
+
+                    <button class="cart-btn {% if p.is_in_cart %}added{% endif %}" onclick="addToCart(this)"
+                        data-product-id="{{ p.id }}">
+                        {% if p.is_in_cart %}
+                        ✓ Added
+                        {% else %}
+                        Add to Cart
+                        {% endif %}
+                    </button>
+                    {% else %}
+                    <button class="cart-btn" onclick="handleCartClick()"> <a href="/login/">Add to Cart</a> </button>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+        // Keeping your Intersection Observer logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+                else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+
+        function addToCart(btn) {
+            const productId = btn.dataset.productId;
+            console.log("Product ID:", productId, "user_id:", {{ request.session.user_id }}); // Debugging line
+        const isAdding = !btn.classList.contains('added');
+
+        // 1. UI Animation (Immediate feedback)
+        if (isAdding) {
+            btn.classList.add('added');
+            btn.innerHTML = '✓ Added';
+        } else {
+            btn.classList.remove('added');
+            btn.innerHTML = 'Add to Cart';
+        }
+        // 2. Backend Update (Simulated with a timeout here, replace with actual API call)
+        fetch(`/add_to_cart/${productId}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                action: isAdding ? "add" : "remove"
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response:", data);
+
+                if (!data.success) {
+                    // revert UI if backend failed
+                    btn.classList.remove('added');
+                    btn.innerHTML = 'Add to Cart';
+                }
+            })
+
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+
+
+        const likeBtns = document.querySelectorAll('.like-btn');
+        likeBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const productId = this.dataset.productId;
+                const button = this;
+                fetch(`/like/${productId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            button.classList.toggle('liked');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+
+            });
+        });
+
+
+        //   let offset = document.querySelectorAll(".product-card").length;
+        //   let loading = false;
+        //   let hasMore = true;
+
+        //   function getLoadCount() {
+        //    const grid = document.querySelector(".product-grid");
+        //    const columns = window.getComputedStyle(grid)
+        //     .gridTemplateColumns.split(" ").length;
+
+        //    return columns * 3;
+        //   }
+        //   window.addEventListener("scroll", function () {
+        //    if (loading || !hasMore) return;
+        //    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200) {
+        //     loading = true;
+        //     let limit = getLoadCount();
+
+        //     fetch(`/load-more-products/?offset=${offset}&limit=${limit}`)
+        //      .then(res => res.json())
+        //      .then(data => {
+
+        //       document
+        //        .getElementById("product-container")
+        //        .insertAdjacentHTML("beforeend", data.html);
+
+        //       offset += limit;
+        //       loading = false;
+
+        //       if (!data.has_more) {
+        //        hasMore = false;
+        //       }
+
+        //      });
+        //    }
+
+        //   });
+
+
+
+
+
+
+
+
+
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>

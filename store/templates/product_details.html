@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Gnapika Stores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --bg-dark: #050505;
+            --card-bg: #0c0c0c;
+            --text-main: #e0e0e0;
+            --text-muted: #71717a;
+            --success: #22C55E;
+            --error: #EF4444;
+        }
+                * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--bg-dark);
+            /* margin: 0;
+            padding: 0; */
+            color: var(--text-main);
+        }
+
+        /* Main Container */
+        .product-wrapper {
+            display: flex;
+            max-width: 1240px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 30px;
+            gap: 40px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        /* --- Left Column: Images --- */
+        .image-section {
+            flex: 0.8;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .main-image-box {
+            /* border: 2px solid gold; */
+            padding: 10px;
+            text-align: center;
+            position: relative;
+            cursor: zoom-in;
+        }
+
+        .main-image-box img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+        }
+
+        .trending-label {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff4757;
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        .thumb-list {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+
+        .thumb {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .thumb.active {
+            border: 2px solid var(--primary-blue);
+        }
+
+        /* --- Right Column: Details --- */
+        .details-section {
+            flex: 1.2;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .rating-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .rating-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .price-row {
+            margin-bottom: 20px;
+        }
+
+        .price-now {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        .price-before {
+            color: var(--text-gray);
+            text-decoration: line-through;
+            margin: 0 10px;
+        }
+
+        .discount-text {
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        /* Urgency Timer */
+        .timer-box {
+            background: #fff5f5;
+            border: 1px solid #ffe3e3;
+            padding: 10px;
+            border-radius: 4px;
+            color: #d63031;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .offers-section {
+            background: rgba(255, 255, 255, 0.03);
+            /* Glass effect */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            /* Faint gold border */
+            padding: 25px;
+            border-radius: 24px;
+            margin-bottom: 30px;
+        }
+
+        .offers-section h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .offers-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .offers-section li {
+            font-size: 13px;
+            margin-bottom: 12px;
+            color: #a1a1aa;
+            /* Muted silver/zinc */
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.5;
+        }
+
+        .offers-section i {
+            color: var(--gold);
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        .promo-badge {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8963E 100%);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 10px;
+            margin-right: 5px;
+        }
+
+        .description-container {
+            margin-top: 30px;
+            padding-left: 20px;
+            border-left: 1px solid var(--gold);
+            /* The Luxury Vertical Line */
+            transition: all 0.5s ease;
+        }
+
+        .description-label {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .description-text {
+            font-size: 14px;
+            color: #a1a1aa;
+            /* Zinc/Silver for readability on black */
+            line-height: 1.8;
+            font-weight: 300;
+            font-style: italic;
+            /* Makes it feel like a designer's note */
+        }
+
+        .description-text b {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .btn-cart,
+        .btn-buy {
+            flex: 1;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            color: var(--gold);
+            transition: 0.2s;
+        }
+
+        .btn-cart {
+            background: black;
+            border: 2px solid gold;
+            border-radius: 50px;
+        }
+
+        .btn-buy {
+            background: black;
+            border: 2px solid gold;
+            border-radius: 50px;
+        }
+
+        .btn-cart:hover {
+            background: var(--gold);
+            color: black;
+            transition: 1s;
+        }
+
+        .btn-buy:hover {
+            background: var(--gold);
+            color: black;
+            transition: 1s;
+        }
+
+        /* Delivery Check */
+        .delivery-check {
+            margin-bottom: 30px;
+        }
+
+        .delivery-check input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            width: 200px;
+            border-radius: 2px;
+        }
+
+        .btn-check {
+            padding: 10px 15px;
+            background: none;
+            border: none;
+            color: var(--primary-blue);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-wrapper {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .image-section {
+                position: static;
+            }
+
+            .btn-cart,
+            .btn-buy {
+                border-radius: 50px;
+                border: 2px solid gold;
+            }
+
+            .btn-group {
+                position: static;
+                /* change from fixed */
+                width: 100%;
+                margin: 30px 0;
+            }
+
+        }
+
+
+        /* Ensure the track hides scrollbars but stays functional */
+        .image-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .image-track {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Main Review Container */
+        .reviews-container {
+            max-width: 1240px;
+            margin: 60px auto;
+            padding: 40px;
+            background: #0c0c0c;
+            /* Deep Charcoal */
+            border-radius: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+        }
+
+        .reviews-header h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        /* Premium Review Form */
+        .review-form-card {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 35px;
+            border-radius: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .review-form-card input,
+        .review-form-card textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            background: #050505;
+            border: 1px solid #222;
+            border-radius: 12px;
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .review-form-card input:focus,
+        .review-form-card textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Luxury Star Rating */
+        .star-rating-choice {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .star-rating-choice label {
+            color: #222;
+            transition: 0.3s;
+        }
+
+        /* Gold Glow for Stars */
+        .star-rating-choice label:hover,
+        .star-rating-choice label:hover~label,
+        .star-rating-choice input:checked~label {
+            color: var(--gold) !important;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Review List Items */
+        .review-card {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px 0;
+            transition: 0.3s;
+        }
+
+        .review-card:hover {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .review-user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-badge {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #D4AF37, #B8963E);
+            color: #000;
+            border-radius: 50%;
+            font-weight: 800;
+            font-family: 'Cinzel', serif;
+        }
+
+        .verified-purchase {
+            color: #22C55E;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .review-rating i {
+            color: var(--gold);
+            font-size: 12px;
+        }
+
+        .review-date {
+            font-size: 11px;
+            color: #555;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        .review-card h4 {
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            margin: 15px 0 10px 0;
+        }
+
+        .review-card p {
+            color: #a1a1aa;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* Premium Buttons */
+        .btn-write-review {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.4s;
+        }
+
+        .btn-write-review:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .btn-submit {
+            background: var(--gold);
+            color: #000;
+            border-radius: 50px;
+            padding: 15px 35px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-cancel {
+            background: black;
+            color: #a1a1aa;
+            border: 1px solid #333;
+            border-radius: 50px;
+            padding: 15px 35px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+
+        /* --- Star Rating Logic --- */
+        .star-rating-choice {
+            display: flex;
+            flex-direction: row-reverse;
+            /* Allows us to color stars to the left of the hover */
+            justify-content: flex-end;
+            font-size: 35px;
+            gap: 5px;
+        }
+
+        /* HIDE THE ACTUAL RADIO BUTTON CIRCLES */
+        .star-rating-choice input[type="radio"] {
+            display: none;
+        }
+
+        /* Default Star Look */
+        .star-rating-choice label {
+            color: #222;
+            /* Dark stars when not selected */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-text-stroke: 1px rgba(212, 175, 55, 0.2);
+            /* Thin gold outline */
+        }
+
+        /* Hover & Checked Effect - Gold Glow */
+        .star-rating-choice label:hover,
+        .star-rating-choice label:hover~label,
+        .star-rating-choice input:checked~label {
+            color: #D4AF37 !important;
+            /* Heritage Gold */
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Change star from outline to solid on selection */
+        .star-rating-choice input:checked~label {
+            content: "★";
+            /* You can use a solid star icon if preferred */
+        }
+
+
+        /*nav bar*/
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            border-bottom: 1px solid rgba(179, 139, 69, 0.1);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        } 
+
+        /* State for hidden navbar */
+         .nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .brand-block {
+            text-align: center;
+        }
+
+        a {
+            color: gold;
+        }
+
+        a:hover {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        {% include "base.html" %}
+        {% block content %}
+        {% endblock %}
+    </nav>
+
+    <br><br><br>
+
+    <div class="product-wrapper">
+        <div class="image-section">
+            <div class="main-image-box">
+                <div class="image-track" id="image-track"
+                    style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;">
+                    {% if product.image %}
+                    <div class="slide" style="min-width: 100%; scroll-snap-align: start;">
+                        <img src="{{ product.image.url }}" style="width: 100%; max-height: 500px; object-fit: contain;"
+                            onerror="this.parentElement.style.display='none'"> --
+                        <img src="/media/{{ product.image }}" id="main-view" onclick="openZoom(this)"
+                            alt="{{ product.title }}">
+                    </div>
+                    {% endif %}
+                    {% for img in images %}
+                    {% if img.image_path %}
+                    <div class="slide" style="min-width: 100%; scroll-snap-align: start;">
+                        <img src="/media/{{ img.image_path }}"
+                            style="width: 100%; max-height: 500px; object-fit: contain;">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="thumb-list">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="thumb active" onclick="jumpToSlide(0)"
+                    onerror="this.style.display='none'">
+                {% endif %}
+
+                {% for img in images %}
+                {% if img.image_path %}
+                <img src="/media/{{ img.image_path }}" class="thumb"
+                    onclick="jumpToSlide({% if product.image %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %})">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="details-section">
+            <h1 class="title">{{ product.title }}</h1>
+
+            <div class="rating-row">
+                <div class="rating-badge">{{ product.rating }} <i class="fa-solid fa-star"></i></div>
+                <span style="color: #878787; font-size: 14px;">14,230 Ratings & 2,105 Reviews</span>
+            </div>
+
+            <div class="price-row">
+                <span class="price-now">₹{{ product.price }}</span>
+                <span class="price-before">₹{{ product.old_price }}</span>
+                <span class="discount-text">{{ product.discount }}% off</span>
+            </div>
+
+            <div class="timer-box">
+                <i class="fa-solid fa-clock"></i> Hurry! Ends in: <b id="countdown">04h 22m 15s</b>
+            </div>
+
+            <div class="offers-section">
+                <h4><i class="fa-solid fa-tag"></i> Available Offers</h4>
+                <ul>
+                    <li><i class="fa-solid fa-circle-check"></i> <b>Bank Offer</b> 10% off on SBI Credit Cards.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> <b>Special Price</b> Get extra ₹500 off (price
+                        inclusive of cashback/coupon).</li>
+                    <li><i class="fa-solid fa-circle-check"></i> <b>No Cost EMI</b> Available on major credit cards.
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="description-container">
+                <span class="description-label">The Artisan's Note</span>
+                <div class="description-text">
+
+                    {{product.description}}
+                    <!-- This exquisite <b>Royal Blue Banarasi Saree</b> is crafted from the finest Kanjeevaram silk.
+                    Featuring intricate <b>gold zari work</b> across the pallu and borders, it is designed for
+                    grace during weddings, festivals, and high-end formal events. -->
+                </div>
+            </div>
+
+            <div class="btn-group">
+
+                {% if request.session.user_id %}
+                <button class="btn-cart" onclick="senddatatobackkend()"><i class="fa-solid fa-cart-shopping"></i> ADD TO
+                    CART</button>
+                {% else %}
+                <button class="btn-cart"> <i class="fa-solid fa-cart-shopping"></i><a href="/login/"> ADD TO CART
+                    </a></button>
+                {% endif %}
+                {% if request.session.user_id %}
+                <button class="btn-buy"><i class="fa-solid fa-bolt"></i><a href="/order/buy/{{ product.pk }}/"> BUY
+                        NOW</a></button>
+                {% else %}
+                <button class="btn-buy"><i class="fa-solid fa-bolt"></i> <a href="/login/"> BUY NOW </a></button>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- testing of review  on main image -->
+    <div class="reviews-container" id="reviews">
+        <div class="reviews-header">
+            <h2>Customer Reviews & Ratings</h2>
+            <button class="btn-write-review" onclick="toggleReviewForm()">Write a Review</button>
+        </div>
+
+        <div id="review-form-container" class="review-form-card" style="display: none;">
+            <h3>Share your experience</h3>
+            <form action="/submit-review/{{ product.id }}/" method="POST">
+                {% csrf_token %}
+                <div class="rating-input">
+                    <p>Rate this Saree:</p>
+                    <div class="star-rating-choice" id="rating-group">
+                        <input type="radio" name="rating" value="5" id="s5" onclick="colorStars(5)"><label
+                            for="s5">☆</label>
+                        <input type="radio" name="rating" value="4" id="s4" onclick="colorStars(4)"><label
+                            for="s4">☆</label>
+                        <input type="radio" name="rating" value="3" id="s3" onclick="colorStars(3)"><label
+                            for="s3">☆</label>
+                        <input type="radio" name="rating" value="2" id="s2" onclick="colorStars(2)"><label
+                            for="s2">☆</label>
+                        <input type="radio" name="rating" value="1" id="s1" onclick="colorStars(1)"><label
+                            for="s1">☆</label>
+                    </div>
+                    <p id="rating-status" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
+                </div>
+                <input type="text" name="headline" placeholder="Review Headline (e.g. Amazing Quality!)" required>
+                <textarea name="comment" rows="4" placeholder="Write your detailed review here..." required></textarea>
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Submit Review</button>
+                    <button type="button" class="btn-cancel" onclick="toggleReviewForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="reviews-list">
+            {% for review in reviews %}
+            <div class="review-card">
+                <div class="review-user-info">
+                    <span class="user-badge">{{ review.user.username|slice:":1"|upper }}</span>
+                    <div>
+                        <strong>{{ review.user.username }}</strong>
+                        <span class="verified-purchase"><i class="fa-solid fa-circle-check"></i> Verified
+                            Purchase</span>
+                    </div>
+                </div>
+                <div class="review-rating">
+                    <span class="stars">
+                        {% for i in "12345" %}
+                        {% if forloop.counter <= review.rating %} <i class="fa-solid fa-star"></i>
+                            {% else %}
+                            <i class="fa-regular fa-star"></i>
+                            {% endif %}
+                            {% endfor %}
+                    </span>
+                    <span class="review-date">{{ review.created_at|date:"d M Y" }}</span>
+                </div>
+                <h4>{{ review.headline }}</h4>
+                <p>{{ review.comment }}</p>
+            </div>
+            {% empty %}
+            <div class="no-reviews">
+                <p>No reviews yet. Be the first to review this beautiful saree!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- update: review section is added in the product details page. It is currently commented out for testing purpose. You can uncomment it to see the review section in action. -->
+
+
+    <script>
+
+        // 1. Image Switcher
+        function swap(img) {
+            document.getElementById('main-view').src = img.src.replace('w=100', 'w=600');
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            img.classList.add('active');
+        }
+
+        // 2. Countdown Timer Simulation
+        let time = 15735; // Seconds remaining
+        setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById('countdown').innerHTML = `${h}h ${m}m ${s}s`;
+        }, 1000);
+
+        // 3. Pincode Check Simulation
+        function checkPin() {
+            let pin = document.getElementById('pin').value;
+            let msg = document.getElementById('pin-msg');
+            if (pin.length === 6) {
+                msg.innerHTML = "✓ Delivered by Wednesday, 1st April";
+                msg.style.color = "#388e3c";
+            } else {
+                msg.innerHTML = "Enter a valid 6-digit pincode";
+                msg.style.color = "red";
+            }
+        }
+
+        // 4. Thumbnail Carousel Logic
+        const track = document.getElementById('image-track');
+        const thumbs = document.querySelectorAll('.thumb');
+
+        // 1. Function to handle thumbnail clicks
+        function jumpToSlide(index) {
+            const currentThumbs = document.querySelectorAll('.thumb');
+            const slideWidth = track.offsetWidth;
+            track.scrollTo({
+                left: slideWidth * index,
+                behavior: 'smooth'
+            });
+        }
+
+        // 2. Observer to update thumbnail border while swiping
+        track.addEventListener('scroll', () => {
+            const index = Math.round(track.scrollLeft / track.offsetWidth);
+            thumbs.forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+        });
+
+        // 5. review form toggle
+        function toggleReviewForm() {
+            const form = document.getElementById('review-form-container');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                form.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                form.style.display = 'none';
+            }
+        }
+        // Ensure your colorStars function is updated to toggle classes on the group
+        function colorStars(rating) {
+            const group = document.getElementById('rating-group');
+            const status = document.getElementById('rating-status');
+            group.classList.remove('stars-green', 'stars-orange', 'stars-red');
+
+            if (rating >= 4) {
+                group.classList.add('stars-green');
+                status.textContent = "Great! Thank you for your feedback.";
+                status.style.color = "#388e3c";
+            }
+            else if (rating === 3) {
+                group.classList.add('stars-orange');
+                status.textContent = "Thanks for your feedback.";
+                status.style.color = "#ff9800";
+            }
+            else {
+                group.classList.add('stars-red');
+                status.textContent = "We're sorry to hear that. We'll work on improving.";
+                status.style.color = "#f44336";
+            }
+        }
+        function senddatatobackkend() {
+            const productId = "{{ product.pk }}";
+            console.log(productId)
+
+            // 2. Your view expects an 'action' key
+            const data = {
+                product_id: productId,
+                action: "add",
+                quantity: 1
+            };
+            fetch(`/add_to_cart/${productId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": getCookie("csrftoken")
+                },
+                body: JSON.stringify(data)
+            })
+
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Product added to cart!");
+                    } else {
+                        alert("Failed to add product to cart.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Technical error occurred.");
+
+                });
+
+        }
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+    </script>
+</body>
+
+</html>

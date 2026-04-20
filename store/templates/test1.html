@@ -1,0 +1,1081 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gnapika | Every Saree Tells a Story</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+
+    <style>
+        :root {
+            --maroon: #4a0404;
+            --gold: #b38b45;
+            --cream: #fdfaf5;
+            --white: #ffffff;
+            --transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --black: #050505;
+            --black2: #0a0a0a;
+            --black3: #111;
+            --gold: #c9a84c;
+            --gold2: #e8c97a;
+            --gold3: #f5e0a0;
+            --gold-dim: #7a5f28;
+            --white: #f5f0e8;
+            --muted: rgba(201, 168, 76, 0.45);
+            --serif: 'Playfair Display', Georgia, serif;
+            --tenor: 'Tenor Sans', sans-serif;
+            --cormorant: 'Cormorant Garamond', Georgia, serif;
+            --border: 1px solid rgba(201, 168, 76, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--cream);
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* --- SMART NAVBAR --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            border-bottom: 1px solid rgba(179, 139, 69, 0.1);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* State for hidden navbar */
+        .nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* .brand-block {
+            text-align: center;
+        } */
+
+        /* .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            letter-spacing: 4px;
+            color: var(--maroon);
+            text-decoration: none;
+            display: block;
+            font-weight: 700;
+            margin-right: 50px;
+        } */
+
+        /* .tagline {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 5px;
+        } */
+
+        /* .nav-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            justify-content: space-evenly;
+        } */
+
+        /* --- PARALLAX HERO --- */
+        .hero-section {
+            position: relative;
+            height: 90vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-parallax-img {
+            position: absolute;
+            top: 5%;
+            /* Extra height for the parallax movement */
+            left: 0;
+            width: 100%;
+            height: 130%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+                url('../static/images/intro_pic1.jpeg') center/cover no-repeat;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 20px;
+        }
+
+        /* --- HORIZONTAL CATEGORY SCROLLER --- */
+        .category-section {
+            padding: 80px 0;
+            background: black;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 40px;
+            font-family: 'Cinzel';
+            color: gold;
+
+        }
+
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 20px 40px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+
+        }
+
+        .scroll-container img {
+            border-radius: 30px;
+            border: 2px solid gold;
+
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar */
+
+        .cat-card {
+            flex: 0 0 300px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .cat-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 1s ease;
+        }
+
+        .cat-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .cat-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            text-align: center;
+        }
+
+        .cat-overlay h3 {
+            font-family: 'Cinzel';
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-container {
+                padding: 10px 20px;
+            }
+
+            .cat-card {
+                flex: 0 0 240px;
+                height: 320px;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .tagline {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* products detail card css is in product.css file, as it is used in multiple pages, and also to avoid making this file too long. */
+
+
+        /* 1. Layout: Side-by-Side (2 columns) */
+        .product-grid {
+            display: grid;
+               grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color:black;
+
+        }
+
+    @media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+        padding: 4px;
+    }
+
+    .product-card {
+        width: 100%;
+        min-width: 0;
+        padding: 4px;
+    }
+
+    .product-card img {
+        height: 100px;   /* reduce image size */
+        object-fit: cover;
+    }
+
+    .product-card h3 {
+        font-size: 12px;  /* smaller text */
+    }
+
+    .product-card p {
+        font-size: 11px;
+    }
+}
+
+        @media (min-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 4px;
+        padding: 4px;
+        min-width:100%;
+    }
+
+    .product-card {
+        width: 100%;
+        min-width: 0;
+        padding: 4px;
+    }
+
+    .product-card img {
+        height: 100px;   /* reduce image size */
+        object-fit: cover;
+    }
+
+    .product-card h3 {
+        font-size: 12px;  /* smaller text */
+    }
+
+    .product-card p {
+        font-size: 11px;
+    }
+
+            
+        }
+
+
+          
+
+        @media (min-width: 1024px) {
+         
+             .product-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 4px;
+        padding: 4px;
+        max-width: 100%;
+    }
+
+    .product-card {
+        width: 100%;
+        min-width: 0;
+        padding: 4px;
+    }
+
+    .product-card img {
+        height: 100px;   /* reduce image size */
+        object-fit: cover;
+    }
+
+    .product-card h3 {
+        font-size: 12px;  /* smaller text */
+    }
+
+    .product-card p {
+        font-size: 11px;
+    }
+        }
+
+        @media (min-width: 1440px) {
+            .product-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 4px;
+        padding: 4px;
+        max-width: 100%;
+    }
+
+    .product-card {
+        width: 100%;
+        min-width: 0;
+        padding: 4px;
+    }
+
+    .product-card img {
+        height: 100px;   /* reduce image size */
+        object-fit: cover;
+    }
+
+    .product-card h3 {
+        font-size: 12px;  /* smaller text */
+    }
+
+    .product-card p {
+        font-size: 11px;
+    }
+        }
+
+        /* 2. Card Styling */
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: transform 0.3s ease;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border: 3px solid gold;
+        }
+
+        .img-container {
+            width: 100%;
+            aspect-ratio: 3/4;
+            /* Keeps saree images tall and consistent */
+            overflow: hidden;
+            background: #f9f9f9;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 3. Like Button (Amazon style) */
+        .like-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            z-index: 5;
+            color: #ccc;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .like-btn.liked {
+            color: #ff4757;
+            transform: scale(1.2);
+        }
+
+        /* 4. Text & Content */
+        .product-info {
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 0.9rem;
+            margin: 0 0 5px 0;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-desc {
+            font-size: 0.75rem;
+            color: #777;
+            margin-bottom: 8px;
+            height: 32px;
+            /* Fixed height for 2 lines */
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .price-row {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #000;
+            font-size: 1rem;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* 5. Cart Button */
+    
+        .cart-btn {
+            background: #ffd814;
+            border: none;
+            border-radius: 20px;
+            padding: 8px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Smooth bounce */
+        }
+
+        .cart-btn.added {
+            background-color: #2ecc71;
+            /* Success Green */
+            color: white;
+            transform: scale(1.05);
+            /* Slight grow to show action */
+        }
+
+        .cart-btn:active {
+            background: #f7ca00;
+            transform: scale(0.9);
+        }
+
+        .cart-btn:hover:not(.added) {
+            background: #f7ca00;
+            transform: translateY(-2px);
+        }
+
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* ── PARALLAX STRIP ── */
+        .parallax-strip {
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-gold{
+            color: black;
+            border: 2px solid gold;
+            background-color: gold;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .parallax-strip-bg {
+            position: absolute;
+            inset: -20%;
+            background: url('https://img.freepik.com/premium-photo/colorful-traditional-middle-eastern-shawls-hanging-bazaar-multi-colored-headscarfs_1602432-919.jpg') center/cover no-repeat;
+            filter: brightness(0.3) saturate(0.4);
+            will-change: transform;
+        }
+
+        .parallax-strip-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .ps-title {
+            font-family: var(--serif);
+            font-size: clamp(36px, 7vw, 90px);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--gold2);
+            text-shadow: 0 0 60px rgba(201, 168, 76, 0.3);
+            line-height: 1;
+        }
+
+        .ps-sub {
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: rgba(245, 240, 232, 0.5);
+            margin-top: 16px;
+            font-family: var(--tenor);
+        }
+
+        /* ── FEATURES ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: gold;
+        }
+
+        @media(max-width:700px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .feat {
+            padding: 40px 28px;
+            border-right: var(--border);
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .feat:last-child {
+            border-right: none
+        }
+
+        @media(max-width:700px) {
+            .feat:nth-child(2) {
+                border-right: none
+            }
+
+            .feat:nth-child(3) {
+                border-top: var(--border)
+            }
+        }
+
+        .feat:hover {
+            background: rgba(201, 168, 76, 0.04)
+        }
+
+        .feat-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gold-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--gold);
+        }
+
+        .feat-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.4;
+            color: rgb(236, 174, 15);
+        }
+
+        .feat-title {
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: orange;
+            margin-bottom: 6px;
+            font-family: var(--tenor)
+        }
+
+        .feat-desc {
+            font-size: 12px;
+            color: gold;
+            line-height: 1.7
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            border-top: var(--border);
+            padding: 72px 48px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1440px;
+            margin: 0 auto
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 64px;
+        }
+
+        @media(max-width:900px) {
+            .footer-top {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(max-width:500px) {
+            .footer-top {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .footer-logo {
+            font-family: var(--serif);
+            font-size: 40px;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 5px;
+            color: var(--gold2);
+            display: block;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(201, 168, 76, 0.2);
+        }
+
+        .footer-about {
+            font-size: 13px;
+            color: rgba(245, 240, 232, 0.4);
+            line-height: 1.9;
+            max-width: 260px
+        }
+
+        .footer-col h4 {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-family: var(--tenor)
+        }
+
+        .footer-col ul {
+            list-style: none
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px
+        }
+
+        .footer-col ul li a {
+            text-decoration: none;
+            color: rgba(245, 240, 232, 0.4);
+            font-size: 13px;
+            transition: color 0.2s;
+            font-family: var(--tenor);
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--gold2)
+        }
+
+        .footer-bottom {
+            border-top: var(--border);
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: rgba(245, 240, 232, 0.25);
+        }
+
+        .show-more-wrapper {
+            text-align: center;
+            text-decoration: none;
+            font-size: 30px;
+            color: gold;
+            background-color: #000;
+
+
+        }
+        .show-more-wrapper a{
+            color: gold;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body style="background-color: #000;">
+
+    <nav id="navbar">
+        {% include "base.html" %}
+        {% block content %}
+        {% endblock %}
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-parallax-img" id="heroImage"></div>
+        <div class="hero-content">
+            <h1>The Royal Drape</h1>
+            <p style="letter-spacing: 4px; text-transform: uppercase;">New Arrivals 2026</p>
+        </div>
+    </header>
+
+    <section class="category-section">
+        <div class="category-header">
+            <h2>Explore Collections</h2>
+        </div>
+        <div class="scroll-container">
+            {% for category in categories %}
+            <div class="cat-card">
+                <a href="/category/{{category.pk}}/">
+                <img src="{{ category.category_image.url }}" alt="{{ category.name }}">
+                </a>
+                <div class="cat-overlay">
+                    <h3>{{ category.name }}</h3>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    </section>
+
+
+    <!-- products are shown in a grid format, with each product having an 
+image, title, description, price, and buttons for liking and adding to cart. The like button toggles a 'liked'
+class for visual feedback, while the add to cart button either adds the product to the cart or prompts the user to log in if they are not authenticated. -->
+
+     <div class="product-grid">
+        {% for p in products %}
+        <div class="reveal">
+            <div class="product-card">
+                {% if request.session.user_id %}
+                <button class="like-btn {% if p.is_liked %}liked{% endif %}" data-product-id="{{ p.id }}">❤</button>
+                {% else %}
+                <button class="like-btn" id="like"><a href="{% url 'login' %}"
+                        style="text-decoration: none;">❤</a></button>
+                {% endif %}
+
+                <div class="img-container">
+
+                    <a href="/product/{{ p.id }}/">
+                        <img src="/media/{{p.image}}" alt="{{ p.title }}">
+                    </a>
+                </div>
+                <div class="product-info">
+                    <a href="/product/{{ p.id }}/">
+                        <h3 class="product-title">{{ p.title }}</h3>
+                    </a>
+                    <p class="product-desc">{{ p.description }}</p>
+                    <div class="price-row">
+                        {% if p.old_price %}
+                        <span class="price">₹{{ p.price }}</span>
+                        <span class="old-price">₹{{ p.old_price }}</span>
+                        {% else %}
+                        <span class="price">₹{{ p.price }}</span>
+                        {% endif %}
+                    </div>
+                    {% if request.session.user_id %}
+                    <!-- <button class="cart-btn" onclick="addToCart(this)" data-product-id="{{ p.id }}">Add to Cart</button> -->
+
+                    <button class="cart-btn {% if p.is_in_cart %}added{% endif %}" onclick="addToCart(this)"
+                        data-product-id="{{ p.id }}">
+                        {% if p.is_in_cart %}
+                        ✓ Added
+                        {% else %}
+                        Add to Cart
+                        {% endif %}
+                    </button>
+                    {% else %}
+                    <button class="cart-btn" onclick="handleCartClick()"> <a href="/login/">Add to Cart</a> </button>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+     
+    <br><br>
+    <div class="show-more-wrapper">
+        <a href="/search-results/">show more</a> 
+    </div>
+    <br><br>
+
+    <!-- PARALLAX MID STRIP -->
+    <div class="parallax-strip">
+        <div class="parallax-strip-bg" id="stripBg"></div>
+        <div class="parallax-strip-content">
+            <p class="ps-title reveal">New arrivals<br><em>every Friday</em></p>
+            <p class="ps-sub reveal reveal-delay-2">Fresh drops — crafted to perfection</p>
+            <div style="margin-top:32px" class="reveal reveal-delay-3">
+                <a href="/search-results/" class="btn-gold">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div style="padding:0 48px;max-width:1440px;margin:0 auto">
+        <div class="features-grid reveal">
+            <div class="feat">
+                <div class="feat-icon"><svg viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg></div>
+                <div class="feat-title">Free Shipping</div>
+                <div class="feat-desc">Complimentary delivery on all orders above ₹999</div>
+            </div>
+            <div class="feat">
+                <div class="feat-icon"><svg viewBox="0 0 24 24">
+                        <polyline points="1 4 1 10 7 10" />
+                        <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+                    </svg></div>
+                <div class="feat-title">Easy Returns</div>
+                <div class="feat-desc">Hassle-free 15-day return & exchange policy</div>
+            </div>
+            <div class="feat">
+                <div class="feat-icon"><svg viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg></div>
+                <div class="feat-title">100% Authentic</div>
+                <div class="feat-desc">Genuine handcrafted Indian ethnic wear</div>
+            </div>
+            <div class="feat">
+                <div class="feat-icon">
+                    <!-- <svg viewBox="0 0 24 24">
+                        <rect x="1" y="4" width="22" height="16" rx="2" />
+                        <line x1="1" y1="10" x2="23" y2="10" />
+                    </svg> -->
+                    <!-- WhatsApp SVG Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+     width="24" height="24" 
+     viewBox="0 0 32 32" 
+     fill="currentColor">
+  <path d="M16 .396C7.163.396 0 7.56 0 16.396c0 2.886.753 5.708 2.184 8.21L0 32l7.61-2.147a15.94 15.94 0 0 0 8.39 2.305h.007c8.837 0 16-7.164 16-16S24.844.396 16 .396zm0 29.196c-2.45 0-4.852-.656-6.94-1.898l-.497-.295-4.517 1.273 1.206-4.403-.323-.512a13.94 13.94 0 0 1-2.144-7.36c0-7.73 6.286-14.016 14.02-14.016 3.744 0 7.26 1.457 9.91 4.107a13.93 13.93 0 0 1 4.107 9.91c-.003 7.73-6.29 14.014-14.022 14.014zm7.705-10.437c-.422-.211-2.495-1.23-2.88-1.372-.386-.14-.668-.21-.95.21-.282.422-1.09 1.372-1.336 1.653-.246.282-.492.317-.914.106-.422-.211-1.78-.656-3.39-2.092-1.254-1.118-2.1-2.498-2.346-2.92-.246-.422-.026-.65.185-.86.19-.19.422-.492.633-.738.21-.246.28-.422.422-.703.14-.282.07-.528-.035-.738-.106-.211-.95-2.29-1.302-3.14-.343-.823-.692-.712-.95-.725-.246-.012-.528-.014-.81-.014-.282 0-.738.106-1.124.528-.386.422-1.474 1.44-1.474 3.51s1.51 4.073 1.72 4.354c.21.282 2.973 4.54 7.206 6.366 1.007.435 1.792.694 2.405.888 1.01.32 1.93.275 2.656.167.81-.12 2.495-1.02 2.848-2.006.352-.985.352-1.83.246-2.006-.106-.176-.386-.282-.808-.493z"/>
+</svg>
+                </div>
+                <div class="feat-title">chat & order </div>
+                <div class="feat-desc"> connect with us and place order </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <span class="footer-logo">Gnapika</span>
+                    <p class="footer-about">Every saree tells a story. Celebrating the art of Indian craftsmanship
+                        through thoughtfully designed ethnic wear for the modern woman. Rooted in tradition, designed
+                        for today.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Kurta Sets</a></li>
+                        <li><a href="#">Suits</a></li>
+                        <li><a href="#">soft pattu saree</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+                <!-- <div class="footer-col">
+                    <h4>Help</h4>
+                    <ul>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Sizing Guide</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div> -->
+                <div class="footer-col">
+                    <h4>CONTACT</h4>
+                    <ul>
+                        <li><a href="#">M MADDI SRINIVASRAO</a></li>
+                        <li><a href="#">12/9/11 prakashnagar opp ofxord school</a></li>
+                        <li><a href="#">Narsaraopet Guntur District A.P</a></li>
+                        <li><a href="#">+91 8712345284</a></li>
+                        <li><a href="#">PINCODE:522601</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Libas. All rights reserved.</span>
+                <span>Made with love in India ✦</span>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+    <script>
+        // --- 2. SMOOTH PARALLAX LOGIC ---
+        window.addEventListener('scroll', () => {
+            const scrollValue = window.pageYOffset;
+            const heroImage = document.getElementById('heroImage');
+
+            // Adjust the background position based on scroll
+            // 0.5 is the speed multiplier
+            heroImage.style.transform = `translateY(${scrollValue * 0.5}px)`;
+        });
+
+        // --- 3. CART BUTTON LOGIC ---
+        function addToCart(btn) {
+            const productId = btn.dataset.productId;
+            console.log("Product ID:", productId, "user_id:", {{ request.session.user_id }}); // Debugging line
+        const isAdding = !btn.classList.contains('added');
+
+        // 1. UI Animation (Immediate feedback)
+        if (isAdding) {
+            btn.classList.add('added');
+            btn.innerHTML = '✓ Added';
+        } else {
+            btn.classList.remove('added');
+            btn.innerHTML = 'Add to Cart';
+        }
+        // 2. Backend Update (Simulated with a timeout here, replace with actual API call)
+        fetch(`/add_to_cart/${productId}/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": getCookie("csrftoken")
+            },
+            body: JSON.stringify({
+                action: isAdding ? "add" : "remove"
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response:", data);
+
+                if (!data.success) {
+                    // revert UI if backend failed
+                    btn.classList.remove('added');
+                    btn.innerHTML = 'Add to Cart';
+                }
+            })
+
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+
+
+        // Keeping your Intersection Observer logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+                else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // like ajax request to backend to save liked products for logged in users, and also to remove from liked products if already liked. This will be done using fetch API and Django views to handle the request and update the database accordingly.
+
+        const likeBtns = document.querySelectorAll('.like-btn');
+        likeBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const productId = this.dataset.productId;
+                const button = this;
+                fetch(`/like/${productId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            button.classList.toggle('liked');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+
+            });
+        });
+
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+    </script>
+</body>
+
+</html>

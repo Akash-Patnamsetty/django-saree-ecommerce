@@ -1,0 +1,15 @@
+# # Created by venv; see https://docs.python.org/3/library/venv.html
+# *
+# Local database
+db.sqlite3
+
+# Environment variables
+.env
+
+# User-uploaded media
+media/
+staticfiles/
+
+# Python cache
+__pycache__/
+*.pyc
