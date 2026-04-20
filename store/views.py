@@ -299,7 +299,8 @@ def product_detail(request, id):
     images = ProductImage.objects.filter(product=product)
     return render(request, 'product_details.html', {
         'product': product,
-        'images': images
+        'images': images,
+        
     })
 
 
