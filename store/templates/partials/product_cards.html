@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+ <style>
+  .product-details-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.product-details-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+    .product-details-card {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.details-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.details-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.details-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.details-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.details-desc {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.details-price {
+    margin-bottom: 20px;
+}
+
+.price {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.old-price {
+    margin-left: 10px;
+    text-decoration: line-through;
+    color: #999;
+}
+
+.cart-btn {
+    background: #ffd814;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cart-btn:hover {
+    background: #f7ca00;
+}
+ </style>
+</head>
+<body>
+<!-- 
+ {% for p in products %}
+<div class="reveal">
+    <div class="product-card">
+
+        <div class="img-container">
+            <a href="/product/{{ p.id }}/">
+                {% if p.main_image %}
+                <img src="/media/{{ p.main_image }}" alt="{{ p.title }}">
+                {% endif %}
+            </a>
+        </div>
+
+        <div class="product-info">
+            <a href="/product/{{ p.id }}/">
+                <h3 class="product-title">{{ p.title }}</h3>
+            </a>
+
+            <p class="product-desc">{{ p.description }}</p>
+
+            <div class="price-row">
+                {% if p.old_price %}
+                <span class="price">₹{{ p.price }}</span>
+                <span class="old-price">₹{{ p.old_price }}</span>
+                {% else %}
+                <span class="price">₹{{ p.price }}</span>
+                {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endfor %} -->
+<div class="product-details-container">
+
+    <div class="product-details-card">
+
+        <div class="details-img">
+            <img src="/media/{{ product.image }}" alt="{{ product.title }}">
+        </div>
+
+        <div class="details-info">
+            <h1 class="details-title">{{ product.title }}</h1>
+
+            <p class="details-desc">{{ product.description }}</p>
+
+            <div class="details-price">
+                {% if product.old_price %}
+                    <span class="price">₹{{ product.price }}</span>
+                    <span class="old-price">₹{{ product.old_price }}</span>
+                {% else %}
+                    <span class="price">₹{{ product.price }}</span>
+                {% endif %}
+            </div>
+
+            <button class="cart-btn">Add to Cart</button>
+
+        </div>
+
+    </div>
+
+</div>
+ 
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+    <style>
+                @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        
+        :root { --gold: #D4AF37; }
+        
+        /* Fixed body to allow scrolling if content is long on mobile */
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #050505; 
+            color: white; 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+
+    </style>
+</head>
+<body>
+    
+
+
+<h2>Your Orders</h2>
+{% for order in orders %}
+<div class="order-card border p-4 mb-4">
+    <h4>Order #{{ order.order_id }}</h4>
+    <p>Payment: {{ order.payment_method }} | Status: {{ order.payment_status }}</p>
+    <p>Total Amount: ₹{{ order.total_amount }}</p>
+    <p>Ordered On: {{ order.created_at }}</p>
+
+    <h5>Items:</h5>
+    <ul>
+        {% for item in order.items %}
+        <li>
+            {{ item.title }} - ₹{{ item.price }} × {{ item.quantity }} = ₹{{ item.total }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endfor %}
+
+
+        <div class="bg-black/40 rounded-[2rem] p-5 mb-8 border border-white/5 text-left">
+            <div class="flex justify-between items-center pb-3 border-b border-white/5 mb-4">
+                <span class="text-[9px] text-zinc-500 uppercase font-black tracking-widest">Order ID</span>
+                <span class="text-xs font-bold text-zinc-200">#GN-{{order.id}}</span>
+            </div>
+
+                {%for item in items%}
+            <div class="flex gap-4 items-center">
+                <div class="w-14 h-14 bg-zinc-800 rounded-xl overflow-hidden shrink-0 border border-white/10">
+                    <img src="/media/{{ item.image }}" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold leading-tight">{{ item.title }}</h4>
+                    <p class="text-[10px] text-[#D4AF37] font-bold mt-1 uppercase tracking-wider">Qty: {{ item.quantity }} | Price: ₹{{ item.price }} | Total: ₹{{ item.total }}</p>
+                </div>
+            </div>
+            {%endfor%}        
+        </div>
+
+
+
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Silk Orders</title>
+    <style>
+        /* Base Page Styles */
+        body {
+            background-color: #000;
+            /* True black background */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 20px;
+            color: #fff;
+            /* Default text color (though we specify below) */
+        }
+
+        .page-wrapper {
+            max-width: 600px;
+            /* Limit width for a clean look on desktop */
+            margin: 0 auto;
+            /* Center on page */
+        }
+
+        /* Card Container */
+        .order-card {
+            background-color: #0d0d0d;
+            /* Slightly different dark black for card definition */
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #2a2a2a;
+            /* Very subtle border */
+        }
+
+        /* Card Header (Order ID) */
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2a2a;
+            /* Separator line */
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .order-id-label {
+            color: #a0a0a0;
+            /* Grey label text */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .order-id-value {
+            color: #d4af37;
+            /* The specific Gold color from the image */
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* Card Item (Product) */
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Product Image Placeholder */
+        .item-image {
+            width: 100px;
+            height: 100px;
+            background-color: #2a2a2a;
+            /* Placeholder color from image */
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0a0a0;
+            /* Icon/text color */
+            font-size: 0.8rem;
+            border: 1px solid #444;
+            /* Subtle placeholder border */
+        }
+
+        .item-image img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+
+        }
+
+        /* Product Details */
+        .item-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-title {
+            color: #fff;
+            /* White title text */
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .item-subtitle {
+            color: #d4af37;
+            /* Gold subtitle from image */
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 5px 0 0 0;
+        }
+
+        /* Responsive Adjustments for Mobile */
+        @media (max-width: 480px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+
+        h1 {
+            color: gold;
+            text-align: center;
+        }
+                nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            border-bottom: 1px solid rgba(179, 139, 69, 0.1);
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        /* State for hidden navbar */
+        .nav-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+    </style>
+</head>
+
+<body>
+                <nav id="navbar">
+        {% include "base.html" %}
+        {% block content %}
+        {% endblock %}
+    </nav>
+
+        <br><br>
+
+    <h1 class="brand-font text-2xl md:text-3xl font-bold text-[#D4AF37] tracking-widest mb-3">Order Confirmed</h1>
+    <div class="page-wrapper">
+        <!-- {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <span class="order-id-label">ORDER ID: <span class="order-id-value">#GN-{{ order.order_id
+                        }}</span></span>
+                <span class="order-id-lanle">Ordered On: <span class="order-id-value"> {{ order.created_at
+                        }}</span></span>
+            </div>
+            <div class="order-item">
+                {% for item in order.items %}
+                <div class="item-image-placeholder">
+                    {% if item.image %}
+                    <i> <img src="/media/{{ item.image }}" class="w-full h-full object-cover"></i>
+                    {% else %}
+                    <div
+                        class="placeholder flex items-center justify-center w-full h-full bg-gray-500 text-white text-xs">
+                        No Image</div>
+                    {% endif %}
+                </div>
+                {%endfor%}
+                <div class="item-details">
+                    {% for item in order.items %}
+                    <h5 class="item-subtitle"> {{ item.title }} </h5>
+                    <p>Payment: {{ order.payment_method }} | Status: {{ order.payment_status }}</p>
+                    <p>Total Amount: ₹{{ order.total_amount }}</p>
+                    {{ item.title }} - ₹{{ item.price }} × {{ item.quantity }} = ₹{{ item.total }}
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        {%endfor%} -->
+
+{% for order in orders %}
+<div class="order-card p-4 mb-4 rounded-lg bg-zinc-900 text-white">
+    <div class="order-header flex justify-between mb-3">
+        <span class="order-id-label">ORDER ID: <span class="order-id-value">#GN-{{ order.order_id }}</span></span>
+        <span class="order-date">Ordered On: <span class="order-id-value">{{ order.created_at }}</span></span>
+    </div>
+
+    {% for item in order.items %}
+    <div class="order-item flex gap-4 items-center mb-3">
+        <!-- Product Image -->
+        <div class="item-image w-14 h-14 bg-zinc-800 rounded-xl overflow-hidden border border-white/10 flex-shrink-0">
+            {% if item.image %}
+            <img src="/media/{{ item.image }}" class="w-full h-full object-cover">
+            {% else %}
+            <div class="placeholder flex items-center justify-center w-full h-full bg-gray-500 text-white text-xs">
+                No Image
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Details -->
+        <div class="item-details flex-1">
+            <h5 class="text-sm font-bold">{{ item.title }}</h5>
+            <p class="text-[10px] text-[#D4AF37] font-bold uppercase tracking-wider mt-1">
+                Payment: {{ order.payment_method }} | Status: {{ order.payment_status }}
+            </p>
+            <p class="text-xs mt-1">
+                ₹{{ item.price }} × {{ item.quantity }} = ₹{{ item.total }}
+            </p>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Order Total -->
+    <div class="order-total text-right font-semibold mt-2">
+        Total Amount: ₹ <span class="order-id-value">{{ order.total_amount }}</span>
+    </div>
+</div>
+{% endfor %}
+
+
+    </div>
+</body>
+
+</html>
