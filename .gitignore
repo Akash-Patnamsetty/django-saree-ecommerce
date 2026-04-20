@@ -20,3 +20,5 @@ activate*
 *.exe
 *.bat
 *.ps1
+# Ignore database backups
+*.sql
