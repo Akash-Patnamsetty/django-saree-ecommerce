@@ -123,9 +123,6 @@ def search_suggestions(request):
         product_results = Product.objects.filter(
             name__icontains=query
         ).values_list('name', flat=True)[:5]
-        # products = Product.objects.filter(
-        #     name__icontains=query
-        # ).values_list('name', flat=True)[:8]
         # Category suggestions
         category_results = Category.objects.filter(
             name__icontains=query
@@ -184,26 +181,6 @@ def search_products(request):
 
     return render(request, 'searchbarresults.html', context)
 
-# def search_products(request):
-#     print("hi hello")
-#     query = request.GET.get('q', '')
-#     print(query)
-    
-#     products = []
-#     print(Product.objects.all())
-#     if query:
-#         products = Product.objects.filter(
-#             title=query
-#         ).order_by('-created_at')
-#         print(products)
-
-#     context = {
-#         'products': products,
-#         'query': query
-#     }
-
-#     return render(request, 'searchbarresults.html', context)
-
 
 def order_success(request):
     user_id = request.session.get("user_id")
@@ -244,7 +221,6 @@ def order_success(request):
 
 
 def home(request):
-    # Products = Product.objects.all()[]
     Products = Product.objects.all().order_by('-created_at')[:10]
     Categories = Category.objects.all().order_by('-created_at')
 
@@ -390,7 +366,6 @@ def add_to_cart(request, product_id):
         if not user_id:
             return JsonResponse({"success": False, "error": "User not logged in"}, status=401)
         try:
-            # product = Product.objects.get(product_id=product_id)
             data=json.loads(request.body)
             action=data.get('action')
             print(action, product_id, user_id,data)
@@ -612,20 +587,6 @@ def search_results(request):
     return render(request, 'searchresults.html', {"products":product_data})
 
 
-# def load_more_products(request):
-#     offset = int(request.GET.get('offset', 0))
-#     limit = int(request.GET.get('limit', 10))
-
-#     products = Product.objects.all().order_by('-created_at')[offset:offset+limit]
-
-#     html = render_to_string("partials/product_cards.html", {
-#         "products": products
-#     })
-
-#     return JsonResponse({
-#         "html": html,
-#         "has_more": len(products) == limit
-#     })
 def load_more_products(request):
     offset = int(request.GET.get('offset', 0))
     limit = int(request.GET.get('limit', 10))
@@ -707,63 +668,13 @@ def save_address(request):
     return JsonResponse({"success": False})
 
 
-# def dashboard_upload(request):
-#     categories = Category.objects.all()
-
-#     if request.method == "POST":
-#         title = request.POST.get("title")
-#         description = request.POST.get("description")
-#         price = request.POST.get("price")
-#         old_price = request.POST.get("old_price")
-#         stock = request.POST.get("stock")
-#         category_id = request.POST.get("category")
-
-#         main_image = request.FILES.get("main_image")
-#         extra_images = request.FILES.getlist("extra_images")
-
-#         product = Product.objects.create(
-#             title=title,
-#             description=description,
-#             price=price,
-#             old_price=old_price,
-#             stock_quantity=stock,
-#             category_id=category_id
-#         )
-
-#         # save main image
-#         if main_image:
-#             path = default_storage.save(f"products/{main_image.name}", main_image)
-#             ProductImage.objects.create(
-#                 product=product,
-#                 image_path=path,
-#                 is_main=True
-#             )
-
-#         # save extra images
-#         for img in extra_images:
-#             path = default_storage.save(f"products/{img.name}", img)
-#             ProductImage.objects.create(
-#                 product=product,
-#                 image_path=path,
-#                 is_main=False
-#             )
-
-#         return redirect("dashboard_upload")
-
-#     return render(request, "dashboard_upload.html", {"categories": categories})
-
-
-
 def dashboard_upload(request):
     categories = Category.objects.all()
 
     if request.method == "POST":
 
         form_type = request.POST.get("form_type")
-
-        # ---------------------------
         # CATEGORY CREATE
-        # ---------------------------
         if form_type == "category":
             name = request.POST.get("category_name")
             image = request.FILES.get("category_image")
@@ -781,9 +692,7 @@ def dashboard_upload(request):
             return redirect("dashboard_upload")
 
 
-        # ---------------------------
         # PRODUCT CREATE
-        # ---------------------------
         if form_type == "product":
 
             title = request.POST.get("title")
