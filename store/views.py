@@ -54,7 +54,6 @@ def create_cod_order(request):
                     )
                 for item in order_items:
                     product = Product.objects.get(pk=item['product_id'])
-                    print("hi hello",product)
                     OrderItem.objects.create(
                     order_id=order.pk,        # use integer ID
                     product_id=product.pk,    # use integer ID
