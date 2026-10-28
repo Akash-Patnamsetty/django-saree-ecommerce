@@ -1,0 +1,97 @@
+{% extends "dashboard_base.html" %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+
+<div class="row" style="justify-content:space-between; margin-bottom:14px;">
+  <h1>{{ product.title }}</h1>
+  <div class="row">
+    <a class="btn ghost" href="{% url 'dashboard_home' %}">← Back to products</a>
+    <a class="btn" href="{% url 'dashboard_product_edit' product.pk %}">Edit product</a>
+  </div>
+</div>
+
+<!-- PRODUCT DETAILS -->
+<div class="card" style="margin-bottom:24px;">
+  <div class="thumbs">
+    {% for img in images %}
+    <div>
+      <a href="/media/{{ img.image_path }}" target="_blank">
+        <img src="/media/{{ img.image_path }}" alt="">
+      </a>
+      {% if img.is_main %}Main{% endif %}
+    </div>
+    {% empty %}
+    <div>No images</div>
+    {% endfor %}
+  </div>
+
+  <table style="margin-bottom:14px;">
+    <tr><th style="width:180px;">Category</th><td>{{ product.category.name }}</td></tr>
+    <tr><th>Price</th><td>₹{{ product.price }}{% if product.old_price %} <span style="color:#888; text-decoration:line-through; margin-left:8px;">₹{{ product.old_price }}</span>{% endif %}</td></tr>
+    <tr><th>Stock</th><td>{{ product.stock_quantity }}</td></tr>
+    <tr><th>Added on</th><td>{{ product.created_at|date:"d M Y, h:i A" }}</td></tr>
+  </table>
+
+  <label>Description</label>
+  <p style="white-space:pre-line; color:#ccc; margin-top:4px;">{{ product.description|default:"No description." }}</p>
+</div>
+
+<!-- REVIEWS -->
+<h1 style="font-size:19px;">Customer reviews ({{ review_count }})</h1>
+
+{% if review_count %}
+<div class="card" style="margin-bottom:18px;">
+  <div class="row" style="gap:36px; align-items:flex-start;">
+    <div style="text-align:center; min-width:110px;">
+      <div style="font-size:38px; color:#D4AF37; font-weight:700;">{{ avg_rating }}</div>
+      <div style="color:#D4AF37;">★★★★★</div>
+      <div style="color:#888; font-size:13px;">{{ review_count }} review{{ review_count|pluralize }}</div>
+    </div>
+    <div style="flex:1; min-width:220px;">
+      {% for b in breakdown %}
+      <div class="row" style="gap:10px; margin-bottom:6px; flex-wrap:nowrap;">
+        <span style="width:30px; font-size:13px;">{{ b.star }} ★</span>
+        <div style="flex:1; background:#222; border-radius:6px; height:8px; overflow:hidden;">
+          <div style="width:{{ b.pct }}%; background:#D4AF37; height:8px;"></div>
+        </div>
+        <span style="width:28px; font-size:13px; color:#888;">{{ b.count }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% for r in reviews %}
+<div class="card" style="margin-bottom:12px;">
+  <div class="row" style="justify-content:space-between; align-items:flex-start;">
+    <div>
+      <strong>{{ r.user.full_name }}</strong>
+      {% if r.verified %}<span style="color:#22c55e; font-size:11px; margin-left:8px;">✔ VERIFIED PURCHASE</span>{% endif %}
+      <div style="color:#888; font-size:12px; margin-top:2px;">
+        {{ r.user.email }} · {{ r.user.phone_number }}
+      </div>
+    </div>
+    <form method="post" action="{% url 'dashboard_review_delete' r.pk %}"
+          onsubmit="return confirm('Delete this review permanently?');">
+      {% csrf_token %}
+      <button class="btn danger" type="submit">Delete review</button>
+    </form>
+  </div>
+
+  <div style="margin-top:10px; color:#D4AF37; letter-spacing:2px;">
+    {% for i in "12345" %}{% if forloop.counter <= r.rating %}★{% else %}<span style="color:#444;">★</span>{% endif %}{% endfor %}
+    <span style="color:#888; font-size:12px; letter-spacing:0; margin-left:8px;">
+      {{ r.created_at|date:"d M Y, h:i A" }}
+      {% if r.updated_at|date:"U" != r.created_at|date:"U" %}(edited {{ r.updated_at|date:"d M Y" }}){% endif %}
+    </span>
+  </div>
+
+  <h3 style="margin:10px 0 6px; font-size:16px;">{{ r.headline }}</h3>
+  <p style="color:#bbb; white-space:pre-line; margin:0;">{{ r.comment }}</p>
+</div>
+{% empty %}
+<div class="card" style="color:#888;">No reviews for this product yet.</div>
+{% endfor %}
+
+{% endblock %}

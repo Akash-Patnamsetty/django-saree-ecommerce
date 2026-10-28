@@ -1,0 +1,61 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Staff{% endblock %}
+{% block content %}
+<h1>Staff</h1>
+
+{% if new_credentials %}
+<div class="msg success">
+  <strong>Account ready for {{ new_credentials.name }}.</strong><br>
+  Email: {{ new_credentials.email }}<br>
+  Temporary password: <code>{{ new_credentials.password }}</code><br>
+  <small>Shown only once. Copy it now and share it privately. They must change it at first login.</small>
+</div>
+{% endif %}
+
+<form class="card" method="post" style="margin-bottom:22px;">
+  {% csrf_token %}
+  <h2 style="margin-top:0; font-size:17px; color:#D4AF37;">Add staff member</h2>
+  <div class="row">
+    <div style="flex:1; min-width:180px;"><label>Full name</label>
+      <input type="text" name="full_name" required></div>
+    <div style="flex:1; min-width:180px;"><label>Email</label>
+      <input type="email" name="email" required></div>
+    <div style="flex:1; min-width:150px;"><label>Phone</label>
+      <input type="tel" name="phone" required></div>
+  </div>
+  <button class="btn" type="submit">Create staff account</button>
+</form>
+
+<table>
+  <tr><th>Name</th><th>Email</th><th>Phone</th><th>Role</th><th>Status</th><th>Actions</th></tr>
+  {% for u in team %}
+  <tr>
+    <td>{{ u.full_name }}</td>
+    <td>{{ u.email }}</td>
+    <td>{{ u.phone_number }}</td>
+    <td>{{ u.get_role_display }}</td>
+    <td>{% if u.is_active %}Active{% else %}Deactivated{% endif %}</td>
+    <td>
+      <div class="row">
+        {% if u.pk != request.current_user.pk %}
+        <form method="post" action="{% url 'dashboard_staff_toggle' u.pk %}"
+              onsubmit="return confirm('Change this account status?');">
+          {% csrf_token %}
+          <button class="btn {% if u.is_active %}danger{% else %}ghost{% endif %}" type="submit">
+            {% if u.is_active %}Deactivate{% else %}Reactivate{% endif %}
+          </button>
+        </form>
+        {% endif %}
+        {% if u.role == 'staff' %}
+        <form method="post" action="{% url 'dashboard_staff_reset' u.pk %}"
+              onsubmit="return confirm('Generate a new temporary password?');">
+          {% csrf_token %}
+          <button class="btn ghost" type="submit">Reset password</button>
+        </form>
+        {% endif %}
+      </div>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

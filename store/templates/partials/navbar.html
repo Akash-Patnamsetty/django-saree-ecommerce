@@ -1,4 +1,45 @@
 <header id="header">
+  <style>
+    
+/* Admin Dashboard Button */
+.dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 11px 20px;
+    margin: 12px 0;
+
+    background: linear-gradient(135deg, #D4AF37, #B8963E);
+    color: #111111;
+
+    border: 1px solid rgba(212, 175, 55, 0.7);
+    border-radius: 12px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.12);
+    transition: all 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    background: linear-gradient(135deg, #F1D477, #D4AF37);
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.25);
+}
+
+.dashboard-btn:active {
+    transform: translateY(0);
+}
+
+  </style>
   <div class="header-inner">
     <div class="nav-left">
       <a href="/" class="logo1">Gnapika</a>
@@ -32,6 +73,13 @@
       </a>
       {% endif %}
 
+
+{% if request.session.role == 'admin' or request.session.role == 'staff' %}
+    <a href="{% url 'dashboard_home' %}" class="dashboard-btn">
+        <i class="fas fa-gauge-high"></i>
+        Dashboard
+    </a>
+{% endif %}
 
 
       {% if request.session.user_id %}
@@ -70,4 +118,6 @@
 
     </div>
   </div>
+
+  
 </header>

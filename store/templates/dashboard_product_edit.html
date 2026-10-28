@@ -1,0 +1,52 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Edit Product{% endblock %}
+{% block content %}
+<h1>Edit: {{ product.title }}</h1>
+<form class="card" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label>Title</label>
+  <input type="text" name="title" value="{{ product.title }}" required>
+
+  <label>Description</label>
+  <textarea name="description" rows="4">{{ product.description }}</textarea>
+
+  <div class="row">
+    <div style="flex:1; min-width:140px;"><label>Price</label>
+      <input type="number" step="0.01" name="price" value="{{ product.price|stringformat:'s' }}" required></div>
+    <div style="flex:1; min-width:140px;"><label>Old price (optional)</label>
+      <input type="number" step="0.01" name="old_price" value="{{ product.old_price|default_if_none:''|stringformat:'s' }}"></div>
+    <div style="flex:1; min-width:140px;"><label>Stock</label>
+      <input type="number" name="stock" value="{{ product.stock_quantity }}" required></div>
+  </div>
+
+  <label>Category</label>
+  <select name="category" required>
+    {% for c in categories %}
+    <option value="{{ c.category_id }}" {% if c.category_id == product.category_id %}selected{% endif %}>{{ c.name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Current images</label>
+  <div class="thumbs">
+    {% for img in images %}
+    <div>
+      <img src="/media/{{ img.image_path }}" alt="">
+      {% if img.is_main %}Main{% else %}
+      <label><input type="checkbox" name="delete_images" value="{{ img.pk }}" style="width:auto; margin:4px 0 0;"> Remove</label>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+  <label>Replace main image (leave empty to keep)</label>
+  <input type="file" name="main_image" accept="image/*">
+
+  <label>Add extra images</label>
+  <input type="file" name="extra_images" accept="image/*" multiple>
+
+  <div class="row">
+    <button class="btn" type="submit">Save changes</button>
+    <a class="btn ghost" href="{% url 'dashboard_home' %}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

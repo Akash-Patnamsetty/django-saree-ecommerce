@@ -156,7 +156,7 @@
         <h1 class="brand-font text-2xl tracking-[0.2em] mb-8 text-center uppercase">Bag (<span id="cart-count">1</span>)
         </h1>
         <!--entra caards-->
-        <!-- {% for item in cart_items%} -->
+        
         <div id="cart-items-container" class="space-y-6">
             {% for item in cart_items%}
             <div class="gnapika-card cart-item" data-price="{{ item.product.price }}"
@@ -191,7 +191,7 @@
             {%endfor%}
         </div>
 
-        <!-- {%endfor%} -->
+    
         <!--entra-->
         <p id="empty-cart" class="text-center text-zinc-500 hidden">
             Your bag is empty

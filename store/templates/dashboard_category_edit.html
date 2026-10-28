@@ -1,0 +1,27 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Edit Category{% endblock %}
+{% block content %}
+<h1>Edit: {{ category.name }}</h1>
+<form class="card" method="post" enctype="multipart/form-data" style="max-width:520px;">
+  {% csrf_token %}
+  <label>Category name</label>
+  <input type="text" name="name" value="{{ category.name }}" maxlength="100" required>
+
+  <label>Current image</label>
+  <div class="thumbs">
+    {% if category.category_image %}
+      <div><img src="{{ category.category_image.url }}" alt=""></div>
+    {% else %}
+      <div>No image</div>
+    {% endif %}
+  </div>
+
+  <label>Replace image (leave empty to keep)</label>
+  <input type="file" name="category_image" accept="image/*">
+
+  <div class="row">
+    <button class="btn" type="submit">Save changes</button>
+    <a class="btn ghost" href="{% url 'dashboard_categories' %}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class Product(models.Model):
@@ -18,7 +19,7 @@ class Product(models.Model):
 
     class Meta:
         db_table = "products"
-        managed = False
+        
 
 
 class ProductImage(models.Model):
@@ -28,9 +29,30 @@ class ProductImage(models.Model):
 
     class Meta:
         db_table = "product_images"
-        managed = False
+       
+
+# class Users(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     full_name = models.CharField(max_length=100)
+#     email = models.EmailField(unique=True)
+#     phone_number = models.CharField(max_length=15, unique=True)
+#     password = models.CharField(max_length=255)
+#     date_joined = models.DateTimeField()
+#     last_login = models.DateTimeField(null=True, blank=True)
+#     is_active = models.BooleanField(default=True)
+#     class Meta:
+#         db_table = "users"
 
 class Users(models.Model):
+    ROLE_CUSTOMER = "customer"
+    ROLE_STAFF = "staff"
+    ROLE_ADMIN = "admin"
+    ROLE_CHOICES = [
+        (ROLE_CUSTOMER, "Customer"),
+        (ROLE_STAFF, "Staff"),
+        (ROLE_ADMIN, "Admin"),
+    ]
+
     id = models.AutoField(primary_key=True)
     full_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -39,9 +61,31 @@ class Users(models.Model):
     date_joined = models.DateTimeField()
     last_login = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
+
+    # NEW FIELDS
+    role = models.CharField(
+        max_length=10,
+        choices=ROLE_CHOICES,
+        default=ROLE_CUSTOMER,
+    )
+    must_change_password = models.BooleanField(default=False)
+
     class Meta:
         db_table = "users"
-        managed = False
+
+    @property
+    def is_admin(self):
+        return self.role == self.ROLE_ADMIN
+
+    @property
+    def is_staff_member(self):
+        return self.role in (self.ROLE_STAFF, self.ROLE_ADMIN)
+        
+        
+        
+        
+        
+        
 
 class address(models.Model):
     id = models.AutoField(primary_key=True)
@@ -54,7 +98,7 @@ class address(models.Model):
 
     class Meta:
         db_table = "address"
-        managed = False
+       
 
 
 class Category(models.Model):
@@ -65,7 +109,7 @@ class Category(models.Model):
 
     class Meta:
         db_table = "categories"
-        managed = False
+        
 
 class Cart(models.Model):
     cart_id = models.AutoField(primary_key=True)
@@ -76,7 +120,7 @@ class Cart(models.Model):
 
     class Meta:
         db_table = "cart"
-        managed = False
+        
 
 class Like(models.Model):
     like_id = models.AutoField(primary_key=True)
@@ -86,7 +130,7 @@ class Like(models.Model):
 
     class Meta:
         db_table = "likes"
-        managed = False
+        
 
 class Order(models.Model):
     id = models.AutoField(primary_key=True)
@@ -109,3 +153,19 @@ class OrderItem(models.Model):
 
     class Meta:
         db_table = "order_items"
+        
+        
+class Review(models.Model):
+    review_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, db_column='user_id', related_name='reviews')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, db_column='product_id', related_name='reviews')
+    rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    headline = models.CharField(max_length=150)
+    comment = models.TextField(max_length=2000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "reviews"
+        ordering = ["-created_at"]
+        unique_together = ("user", "product") 

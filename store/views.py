@@ -14,12 +14,21 @@ from django.contrib.auth.hashers import check_password
 from django.db.models import Q
 from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render,redirect,get_object_or_404
-from .models import Like, Product,ProductImage, Users, Cart, address, Category,Order,OrderItem
+from .models import Like, Product,ProductImage, Review, Users, Cart, address, Category,Order,OrderItem
 from django.views.decorators.csrf import csrf_exempt
 import razorpay
 from django.views.decorators.csrf import csrf_exempt
-
-
+from .permissions import staff_required, admin_required
+from django.urls import reverse
+from decimal import Decimal, InvalidOperation
+from django.views.decorators.http import require_POST
+import re
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from .management.commands.create_admin import generate_password
+from django.db.models import Count,Avg
+from django.db import transaction
+from PIL import Image
 
 @csrf_exempt
 def create_cod_order(request):
@@ -294,36 +303,132 @@ def home(request):
 
 
 
+# def product_detail(request, id):
+#     product = get_object_or_404(Product, product_id=id)
+#     images = ProductImage.objects.filter(product=product)
+#     return render(request, 'product_details.html', {
+#         'product': product,
+#         'images': images,
+        
+#     })
+
 def product_detail(request, id):
     product = get_object_or_404(Product, product_id=id)
     images = ProductImage.objects.filter(product=product)
+
+    reviews = list(Review.objects.filter(product=product).select_related("user"))
+    stats = Review.objects.filter(product=product).aggregate(avg=Avg("rating"), total=Count("review_id"))
+
+    # which reviewers actually bought this product
+    order_ids = OrderItem.objects.filter(product_id=product.pk).values_list("order_id", flat=True)
+    buyers = set(Order.objects.filter(id__in=order_ids).values_list("user_id", flat=True))
+    for r in reviews:
+        r.verified = r.user_id in buyers
+
+    user_id = request.session.get("user_id")
+    my_review = next((r for r in reviews if r.user_id == user_id), None) if user_id else None
+
+    discount = None
+    if product.old_price and product.old_price > product.price:
+        discount = int((product.old_price - product.price) * 100 / product.old_price)
+
     return render(request, 'product_details.html', {
-        'product': product,
-        'images': images,
-        
+        'product': product, 'images': images,
+        'reviews': reviews,
+        'avg_rating': round(stats["avg"], 1) if stats["avg"] else None,
+        'review_count': stats["total"],
+        'my_review': my_review,
+        'discount': discount,
     })
+    
+    
+@require_POST
+def submit_review(request, product_id):
+    user_id = request.session.get("user_id")
+    user = Users.objects.filter(pk=user_id, is_active=True).first() if user_id else None
+    if not user:
+        return redirect("login")
+
+    product = get_object_or_404(Product, pk=product_id)
+    back = f"{reverse('product_details', args=[product.pk])}#reviews"
+
+    rating_raw = request.POST.get("rating", "")
+    headline = request.POST.get("headline", "").strip()
+    comment = request.POST.get("comment", "").strip()
+
+    if not rating_raw.isdigit() or not 1 <= int(rating_raw) <= 5:
+        messages.error(request, "Please choose a star rating.")
+    elif not headline or len(headline) > 150:
+        messages.error(request, "Enter a headline (up to 150 characters).")
+    elif not comment or len(comment) > 2000:
+        messages.error(request, "Enter your review (up to 2000 characters).")
+    else:
+        Review.objects.update_or_create(
+            user=user, product=product,
+            defaults={"rating": int(rating_raw), "headline": headline, "comment": comment},
+        )
+        messages.success(request, "Thanks! Your review has been saved.")
+    return redirect(back)
+
+
+# def login_view(request):
+#     if request.method == "POST":
+#         identifier = request.POST['email']
+#         password = request.POST['password'] 
+#         user = Users.objects.filter(Q(email=identifier) | Q(phone_number=identifier),is_active=1).first()
+#         if not user:
+#             messages.error(request, "Email/Phone number is incorrect.", extra_tags='login_id')
+#             return redirect('login')
+#         if check_password(password, user.password):
+#             # --- ADD THIS LOGIC HERE ---
+#             user.last_login = timezone.now()
+#             user.save(update_fields=['last_login']) # Only updates this specific column
+#             # Success! Set session and redirect
+#             request.session['user_id'] = user.id
+#             request.session['user_name'] = user.full_name
+#             return redirect('home')
+#         else:
+#             messages.error(request, "Password is incorrect.", extra_tags='login_pass')
+#             return redirect('login')
+#     return render(request, 'login_page.html')
+
 
 
 def login_view(request):
     if request.method == "POST":
-        identifier = request.POST['email']
-        password = request.POST['password'] 
-        user = Users.objects.filter(Q(email=identifier) | Q(phone_number=identifier),is_active=1).first()
+        identifier = request.POST['email'].strip()
+        password = request.POST['password']
+        user = Users.objects.filter(
+            Q(email__iexact=identifier) | Q(phone_number=identifier),
+            is_active=True
+        ).first()
         if not user:
             messages.error(request, "Email/Phone number is incorrect.", extra_tags='login_id')
             return redirect('login')
+
         if check_password(password, user.password):
-            # --- ADD THIS LOGIC HERE ---
             user.last_login = timezone.now()
-            user.save(update_fields=['last_login']) # Only updates this specific column
-            # Success! Set session and redirect
+            user.save(update_fields=['last_login'])
+
+            request.session.cycle_key()          # new session ID on login
             request.session['user_id'] = user.id
             request.session['user_name'] = user.full_name
+            request.session['role'] = user.role   # for showing links only, never for permissions
+
+            if user.must_change_password:
+                return redirect('force_password_change')
+            if user.role in (Users.ROLE_STAFF, Users.ROLE_ADMIN):
+                return redirect('dashboard_upload')   # becomes /dashboard/ in Step 9
             return redirect('home')
         else:
             messages.error(request, "Password is incorrect.", extra_tags='login_pass')
             return redirect('login')
     return render(request, 'login_page.html')
+
+
+
+
+
 
 
 def signup_view(request):
@@ -384,6 +489,8 @@ def like_product(request, product_id):
                 )
                 return JsonResponse({"success": True, "status": "added"})
 
+
+
 def add_to_cart(request, product_id):
     if request.method == "POST":
         user_id = request.session.get("user_id")
@@ -428,9 +535,15 @@ def test_view(request):
 
 def profile_view(request):
     user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+    user = Users.objects.filter(pk=user_id, is_active=True).first()
+    if not user:
+        request.session.flush()
+        return redirect("login")
     user_addresses = address.objects.filter(user_id=user_id).order_by('-is_default')
-    user = Users.objects.get(pk=user_id)
-    return render(request, 'profile.html',{'addresses': user_addresses,"user":user})
+    return render(request, 'profile.html', {'addresses': user_addresses, "user": user})
+
 
 def cart_view(request):
     user_id = request.session.get("user_id")
@@ -755,75 +868,517 @@ def save_address(request):
 
 
 
+MAX_IMAGE_MB = 5
+
+
+def _image_error(f):
+    """Return an error string if f is not a real image under the size limit, else None."""
+    if f.size > MAX_IMAGE_MB * 1024 * 1024:
+        return f"'{f.name}' is larger than {MAX_IMAGE_MB} MB."
+    try:
+        Image.open(f).verify()
+    except Exception:
+        return f"'{f.name}' is not a valid image."
+    finally:
+        f.seek(0)
+    return None
+
+
+@staff_required
 def dashboard_upload(request):
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by("name")
+    form = {}
 
     if request.method == "POST":
-
         form_type = request.POST.get("form_type")
 
-        # ---------------------------
-        # CATEGORY CREATE
-        # ---------------------------
+        # ---------- CATEGORY ----------
         if form_type == "category":
-            name = request.POST.get("category_name")
+            name = request.POST.get("category_name", "").strip()
             image = request.FILES.get("category_image")
 
-            path = None
-            if image:
-                path = default_storage.save(f"category_images/{image.name}", image)
+            if not name or len(name) > 100:
+                messages.error(request, "Enter a category name (up to 100 characters).")
+            elif Category.objects.filter(name__iexact=name).exists():
+                messages.error(request, "A category with that name already exists.")
+            elif image and _image_error(image):
+                messages.error(request, _image_error(image))
+            else:
+                path = default_storage.save(f"category_images/{image.name}", image) if image else None
+                Category.objects.create(name=name, category_image=path, created_at=timezone.now())
+                messages.success(request, f"Category '{name}' added.")
+                return redirect("dashboard_categories")
 
-            Category.objects.create(
-                name=name,
-                category_image=path,
-                created_at=timezone.now()
-            )
-
-            return redirect("dashboard_upload")
-
-
-        # ---------------------------
-        # PRODUCT CREATE
-        # ---------------------------
-        if form_type == "product":
-
-            title = request.POST.get("title")
-            description = request.POST.get("description")
-            price = request.POST.get("price")
-            old_price = request.POST.get("old_price")
-            stock = request.POST.get("stock")
-            category_id = request.POST.get("category")
-
+        # ---------- PRODUCT ----------
+        elif form_type == "product":
+            form = request.POST
+            title = request.POST.get("title", "").strip()
+            description = request.POST.get("description", "").strip()
             main_image = request.FILES.get("main_image")
             extra_images = request.FILES.getlist("extra_images")
+            cat_id = request.POST.get("category", "")
+            category = Category.objects.filter(pk=cat_id).first() if cat_id.isdigit() else None
+            error = None
 
-            product = Product.objects.create(
-                title=title,
-                description=description,
-                price=price,
-                old_price=old_price,
-                stock_quantity=stock,
-                category_id=category_id
+            try:
+                price = Decimal(request.POST.get("price", ""))
+                old_raw = request.POST.get("old_price", "").strip()
+                old_price = Decimal(old_raw) if old_raw else None
+                stock = int(request.POST.get("stock", ""))
+            except (InvalidOperation, ValueError):
+                error = "Price, old price and stock must be valid numbers."
+            else:
+                if not title or len(title) > 255:
+                    error = "Enter a title (up to 255 characters)."
+                elif not price.is_finite() or price <= 0 or price >= 10**8:
+                    error = "Price must be greater than 0."
+                elif old_price is not None and (not old_price.is_finite() or old_price <= 0 or old_price >= 10**8):
+                    error = "Old price must be greater than 0, or left empty."
+                elif stock < 0:
+                    error = "Stock can't be negative."
+                elif category is None:
+                    error = "Choose a category."
+                elif main_image is None:
+                    error = "A main image is required."
+                else:
+                    for f in [main_image] + extra_images:
+                        error = _image_error(f)
+                        if error:
+                            break
+
+            if error:
+                messages.error(request, error)
+            else:
+                with transaction.atomic():
+                    product = Product.objects.create(
+                        title=title, description=description, price=price,
+                        old_price=old_price, stock_quantity=stock, category=category,
+                    )
+                    _save_product_image(product, main_image, True)
+                    for f in extra_images:
+                        _save_product_image(product, f, False)
+                messages.success(request, f"Product '{title}' added.")
+                return redirect("dashboard_home")
+
+    return render(request, "dashboard_upload.html", {"categories": categories, "form": form})
+
+
+
+
+def _attach_main_image(products):
+    for p in products:
+        m = ProductImage.objects.filter(product=p, is_main=True).first()
+        p.main_image = m.image_path if m else None
+    return products
+
+
+def _save_product_image(product, f, is_main):
+    path = default_storage.save(f"products/{f.name}", f)
+    ProductImage.objects.create(product=product, image_path=path, is_main=is_main)
+
+
+@staff_required
+def dashboard_home(request):
+    q = request.GET.get("q", "").strip()
+    qs = Product.objects.select_related("category").order_by("-created_at")
+    if q:
+        qs = qs.filter(title__icontains=q)
+    products = _attach_main_image(list(qs))
+    return render(request, "dashboard_home.html", {"products": products, "q": q})
+
+@staff_required
+def dashboard_product_edit(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    categories = Category.objects.all().order_by("name")
+
+    if request.method == "POST":
+        title = request.POST.get("title", "").strip()
+        description = request.POST.get("description", "").strip()
+        try:
+            price = Decimal(request.POST.get("price", ""))
+            old_raw = request.POST.get("old_price", "").strip()
+            old_price = Decimal(old_raw) if old_raw else None
+            stock = int(request.POST.get("stock", ""))
+        except (InvalidOperation, ValueError):
+            messages.error(request, "Price, old price and stock must be valid numbers.")
+            return redirect("dashboard_product_edit", product_id=product.pk)
+
+        cat_id = request.POST.get("category", "")
+        category = Category.objects.filter(pk=cat_id).first() if cat_id.isdigit() else None
+        main_file = request.FILES.get("main_image")
+        extra_files = request.FILES.getlist("extra_images")
+
+        if (not title or len(title) > 255 or not price.is_finite() or price <= 0
+                or price >= 10**8 or stock < 0 or category is None):
+            messages.error(request, "Title, a positive price, stock (0 or more) and a category are required.")
+            return redirect("dashboard_product_edit", product_id=product.pk)
+
+        if old_price is not None and (not old_price.is_finite() or old_price <= 0 or old_price >= 10**8):
+            messages.error(request, "Old price must be greater than 0, or left empty.")
+            return redirect("dashboard_product_edit", product_id=product.pk)
+
+        for f in ([main_file] if main_file else []) + extra_files:
+            err = _image_error(f)
+            if err:
+                messages.error(request, err)
+                return redirect("dashboard_product_edit", product_id=product.pk)
+
+        product.title = title
+        product.description = description
+        product.price = price
+        product.old_price = old_price
+        product.stock_quantity = stock
+        product.category = category
+        product.save()
+
+        # replace main image
+        if main_file:
+            for old in ProductImage.objects.filter(product=product, is_main=True):
+                default_storage.delete(old.image_path)
+                old.delete()
+            _save_product_image(product, main_file, True)
+
+        # remove ticked extra images (never the main one)
+        ids = [i for i in request.POST.getlist("delete_images") if i.isdigit()]
+        for img in ProductImage.objects.filter(product=product, is_main=False, pk__in=ids):
+            default_storage.delete(img.image_path)
+            img.delete()
+
+        # add new extra images
+        for f in extra_files:
+            _save_product_image(product, f, False)
+
+        messages.success(request, "Product updated.")
+        return redirect("dashboard_home")
+
+    images = ProductImage.objects.filter(product=product).order_by("-is_main", "id")
+    return render(request, "dashboard_product_edit.html",
+                  {"product": product, "categories": categories, "images": images})
+
+
+
+
+
+@staff_required
+@require_POST
+def dashboard_product_delete(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+
+    # Orders store plain integer IDs and order history loads each product,
+    # so deleting an ordered product would break customers' order pages.
+    if OrderItem.objects.filter(product_id=product.pk).exists():
+        messages.error(request, "This product is in past orders, so it can't be deleted. "
+                                "Set its stock to 0 instead.")
+        return redirect("dashboard_home")
+
+    for img in ProductImage.objects.filter(product=product):
+        default_storage.delete(img.image_path)
+    product.delete()
+    messages.success(request, "Product deleted.")
+    return redirect("dashboard_home")
+
+
+
+def force_password_change(request):
+    user_id = request.session.get("user_id")
+    user = Users.objects.filter(pk=user_id, is_active=True).first() if user_id else None
+    if not user:
+        return redirect('login')
+    if not user.must_change_password:
+        return redirect('home')
+
+    error = None
+    if request.method == "POST":
+        new_pw = request.POST.get("new_password", "")
+        confirm = request.POST.get("confirm_password", "")
+        import re
+        if new_pw != confirm:
+            error = "Passwords do not match."
+        elif check_password(new_pw, user.password):
+            error = "New password must be different from the temporary one."
+        elif not re.match(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$', new_pw):
+            error = "At least 8 characters with a letter, a number and one of @$!%*#?&."
+        else:
+            user.password = make_password(new_pw)
+            user.must_change_password = False
+            user.save(update_fields=['password', 'must_change_password'])
+            request.session.cycle_key()
+            if user.role in (Users.ROLE_STAFF, Users.ROLE_ADMIN):
+                return redirect('dashboard_home')
+            return redirect('home')
+    return render(request, 'force_password_change.html', {'error': error})
+
+
+
+
+@admin_required
+def dashboard_staff(request):
+    new_credentials = None
+
+    if request.method == "POST":
+        name = request.POST.get("full_name", "").strip()
+        email = request.POST.get("email", "").strip().lower()
+        phone = request.POST.get("phone", "").strip()
+
+        try:
+            validate_email(email)
+            email_ok = True
+        except ValidationError:
+            email_ok = False
+
+        if not name or not email_ok:
+            messages.error(request, "Enter a name and a valid email.")
+        elif not re.match(r"^[6-9]\d{9}$", phone):
+            messages.error(request, "Enter a valid 10-digit phone number.")
+        elif Users.objects.filter(email__iexact=email).exists():
+            messages.error(request, "That email is already registered.")
+        elif Users.objects.filter(phone_number=phone).exists():
+            messages.error(request, "That phone number is already registered.")
+        else:
+            password = generate_password()
+            Users.objects.create(
+                full_name=name, email=email, phone_number=phone,
+                password=make_password(password),
+                date_joined=timezone.now(),
+                is_active=True,
+                role=Users.ROLE_STAFF,          # always staff, never taken from the form
+                must_change_password=True,
             )
+            # Rendered directly (not via messages) so the password never goes into a cookie.
+            new_credentials = {"name": name, "email": email, "password": password}
 
-            # main image
-            if main_image:
-                path = default_storage.save(f"products/{main_image.name}", main_image)
-                ProductImage.objects.create(
-                    product=product,
-                    image_path=path,
-                    is_main=True
-                )
+    team = Users.objects.filter(role__in=[Users.ROLE_STAFF, Users.ROLE_ADMIN]).order_by("role", "full_name")
+    return render(request, "dashboard_staff.html", {"team": team, "new_credentials": new_credentials})
 
-            # extra images
-            for img in extra_images:
-                path = default_storage.save(f"products/{img.name}", img)
-                ProductImage.objects.create(
-                    product=product,
-                    image_path=path,
-                    is_main=False
-                )
 
-            return redirect("dashboard_upload")
+@admin_required
+@require_POST
+def dashboard_staff_toggle(request, user_id):
+    target = get_object_or_404(Users, pk=user_id, role__in=[Users.ROLE_STAFF, Users.ROLE_ADMIN])
 
-    return render(request, "dashboard_upload.html", {"categories": categories})
+    if target.pk == request.current_user.pk:
+        messages.error(request, "You can't deactivate your own account.")
+        return redirect("dashboard_staff")
+
+    if target.role == Users.ROLE_ADMIN and target.is_active:
+        if Users.objects.filter(role=Users.ROLE_ADMIN, is_active=True).count() <= 1:
+            messages.error(request, "You can't deactivate the last active admin.")
+            return redirect("dashboard_staff")
+
+    target.is_active = not target.is_active
+    target.save(update_fields=["is_active"])
+    messages.success(request, f"{target.full_name} is now {'active' if target.is_active else 'deactivated'}.")
+    return redirect("dashboard_staff")
+
+
+@admin_required
+@require_POST
+def dashboard_staff_reset(request, user_id):
+    target = get_object_or_404(Users, pk=user_id, role=Users.ROLE_STAFF)
+    password = generate_password()
+    target.password = make_password(password)
+    target.must_change_password = True
+    target.save(update_fields=["password", "must_change_password"])
+
+    team = Users.objects.filter(role__in=[Users.ROLE_STAFF, Users.ROLE_ADMIN]).order_by("role", "full_name")
+    return render(request, "dashboard_staff.html", {
+        "team": team,
+        "new_credentials": {"name": target.full_name, "email": target.email, "password": password},
+    })
+    
+    
+    
+@staff_required
+def dashboard_categories(request):
+    categories = Category.objects.annotate(product_count=Count("product")).order_by("name")
+    return render(request, "dashboard_categories.html", {"categories": categories})
+
+@staff_required
+def dashboard_category_edit(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+
+    if request.method == "POST":
+        name = request.POST.get("name", "").strip()
+        image = request.FILES.get("category_image")
+
+        if not name or len(name) > 100:
+            messages.error(request, "Enter a category name (up to 100 characters).")
+            return redirect("dashboard_category_edit", category_id=category.pk)
+        if Category.objects.filter(name__iexact=name).exclude(pk=category.pk).exists():
+            messages.error(request, "Another category already uses that name.")
+            return redirect("dashboard_category_edit", category_id=category.pk)
+        if image and _image_error(image):
+            messages.error(request, _image_error(image))
+            return redirect("dashboard_category_edit", category_id=category.pk)
+
+        category.name = name
+        if image:
+            old = category.category_image.name if category.category_image else None
+            category.category_image = default_storage.save(f"category_images/{image.name}", image)
+            if old:
+                default_storage.delete(old)
+        category.save()
+
+        messages.success(request, "Category updated.")
+        return redirect("dashboard_categories")
+
+    return render(request, "dashboard_category_edit.html", {"category": category})
+
+@staff_required
+@require_POST
+def dashboard_category_delete(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+
+    count = Product.objects.filter(category=category).count()
+    if count:
+        messages.error(request, f"'{category.name}' still has {count} product(s). "
+                                "Move or delete them first, then delete the category.")
+        return redirect("dashboard_categories")
+
+    if category.category_image:
+        default_storage.delete(category.category_image.name)
+    category.delete()
+    messages.success(request, "Category deleted.")
+    return redirect("dashboard_categories")
+
+
+
+@staff_required
+def dashboard_account(request):
+    user = request.current_user
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        # ---------- PROFILE ----------
+        if action == "profile":
+            name = request.POST.get("full_name", "").strip()
+            phone = request.POST.get("phone", "").strip()
+
+            if not name or len(name) > 100:
+                messages.error(request, "Enter a name (up to 100 characters).")
+            elif not re.match(r"^[6-9]\d{9}$", phone):
+                messages.error(request, "Enter a valid 10-digit phone number.")
+            elif Users.objects.filter(phone_number=phone).exclude(pk=user.pk).exists():
+                messages.error(request, "That phone number is already used by another account.")
+            else:
+                user.full_name = name
+                user.phone_number = phone
+                user.save(update_fields=["full_name", "phone_number"])
+                request.session["user_name"] = name
+                messages.success(request, "Profile updated.")
+                return redirect("dashboard_account")
+
+        # ---------- PASSWORD ----------
+        elif action == "password":
+            old_pw = request.POST.get("old_password", "")
+            new_pw = request.POST.get("new_password", "")
+            confirm = request.POST.get("confirm_password", "")
+
+            if not check_password(old_pw, user.password):
+                messages.error(request, "Your current password is incorrect.")
+            elif new_pw != confirm:
+                messages.error(request, "New passwords do not match.")
+            elif check_password(new_pw, user.password):
+                messages.error(request, "New password must be different from the current one.")
+            elif not re.match(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$', new_pw):
+                messages.error(request, "At least 8 characters with a letter, a number and one of @$!%*#?&.")
+            else:
+                user.password = make_password(new_pw)
+                user.must_change_password = False
+                user.save(update_fields=["password", "must_change_password"])
+                request.session.cycle_key()
+                messages.success(request, "Password changed.")
+                return redirect("dashboard_account")
+
+    return render(request, "dashboard_account.html", {"account": user})
+
+
+
+@require_POST
+def update_profile(request):
+    user_id = request.session.get("user_id")
+    user = Users.objects.filter(pk=user_id, is_active=True).first() if user_id else None
+    if not user:
+        return redirect("login")
+
+    name = request.POST.get("full_name", "").strip()
+    old_pw = request.POST.get("old_password", "")
+    new_pw = request.POST.get("new_password", "")
+    confirm = request.POST.get("confirm_password", "")
+    changing_pw = bool(old_pw or new_pw or confirm)
+
+    error = None
+    if not name or len(name) > 100:
+        error = "Enter your name (up to 100 characters)."
+    elif changing_pw:
+        if not check_password(old_pw, user.password):
+            error = "Your current password is incorrect."
+        elif new_pw != confirm:
+            error = "New passwords do not match."
+        elif check_password(new_pw, user.password):
+            error = "New password must be different from the current one."
+        elif not re.match(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$', new_pw):
+            error = "Password needs 8+ characters with a letter, a number and one of @$!%*#?&."
+
+    if error:
+        messages.error(request, error)
+        return redirect("profile")
+
+    user.full_name = name
+    fields = ["full_name"]
+    if changing_pw:
+        user.password = make_password(new_pw)
+        user.must_change_password = False
+        fields += ["password", "must_change_password"]
+    user.save(update_fields=fields)
+
+    request.session["user_name"] = name
+    if changing_pw:
+        request.session.cycle_key()
+    messages.success(request, "Profile updated.")
+    return redirect("profile")
+
+
+
+
+@staff_required
+def dashboard_product_detail(request, product_id):
+    product = get_object_or_404(Product.objects.select_related("category"), pk=product_id)
+    images = ProductImage.objects.filter(product=product).order_by("-is_main", "id")
+
+    reviews = list(Review.objects.filter(product=product).select_related("user").order_by("-created_at"))
+    stats = Review.objects.filter(product=product).aggregate(avg=Avg("rating"), total=Count("review_id"))
+
+    # star breakdown: 5 down to 1
+    counts = {i: 0 for i in range(1, 6)}
+    for r in reviews:
+        counts[r.rating] += 1
+    breakdown = [{"star": s, "count": counts[s],
+                  "pct": int(counts[s] * 100 / len(reviews)) if reviews else 0}
+                 for s in range(5, 0, -1)]
+
+    # mark reviewers who actually bought this product
+    order_ids = OrderItem.objects.filter(product_id=product.pk).values_list("order_id", flat=True)
+    buyers = set(Order.objects.filter(id__in=order_ids).values_list("user_id", flat=True))
+    for r in reviews:
+        r.verified = r.user_id in buyers
+
+    return render(request, "dashboard_product_detail.html", {
+        "product": product,
+        "images": images,
+        "reviews": reviews,
+        "avg_rating": round(stats["avg"], 1) if stats["avg"] else None,
+        "review_count": stats["total"],
+        "breakdown": breakdown,
+    })
+
+
+@staff_required
+@require_POST
+def dashboard_review_delete(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    product_id = review.product_id
+    review.delete()
+    messages.success(request, "Review deleted.")
+    return redirect("dashboard_product_detail", product_id=product_id)

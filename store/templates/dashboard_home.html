@@ -1,0 +1,39 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Products{% endblock %}
+{% block content %}
+<div class="row" style="justify-content:space-between; margin-bottom:14px;">
+  <div class="row">
+  <h1>Products ({{ products|length }})</h1>
+  <a class="btn" href="{% url 'dashboard_upload' %}">+ Add product</a>
+</div>
+  <form method="get" class="row" style="gap:8px;">
+    <input type="text" name="q" value="{{ q }}" placeholder="Search title" style="margin:0; width:220px;">
+    <button class="btn" type="submit">Search</button>
+  </form>
+</div>
+
+<table>
+  <tr><th>Image</th><th>Title</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+  {% for p in products %}
+  <tr>
+  <td>{% if p.main_image %}<a href="{% url 'dashboard_product_detail' p.pk %}"><img src="/media/{{ p.main_image }}" alt=""></a>{% endif %}</td>
+    <td><a href="{% url 'dashboard_product_detail' p.pk %}" style="color:#D4AF37; text-decoration:none;">{{ p.title }}</a></td>
+    <td>{{ p.category.name }}</td>
+    <td>₹{{ p.price }}</td>
+    <td>{{ p.stock_quantity }}</td>
+    <td>
+      <div class="row">
+        <a class="btn ghost" href="{% url 'dashboard_product_edit' p.pk %}">Edit</a>
+        <form method="post" action="{% url 'dashboard_product_delete' p.pk %}"
+              onsubmit="return confirm('Delete this product permanently?');">
+          {% csrf_token %}
+          <button class="btn danger" type="submit">Delete</button>
+        </form>
+      </div>
+    </td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="6">No products found.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

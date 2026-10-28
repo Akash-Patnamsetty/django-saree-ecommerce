@@ -128,6 +128,20 @@
             </div>
         </section>
 
+
+
+{% for m in messages %}
+<div class="rounded-2xl px-4 py-3 text-sm text-center border
+    {% if m.level_tag == 'error' %}border-red-500/50 text-red-400 bg-red-500/10{% else %}border-emerald-500/50 text-emerald-400 bg-emerald-500/10{% endif %}">
+    {{ m }}
+</div>
+{% endfor %}
+
+
+
+
+
+
         <section class="animate-up" style="animation-delay: 0.2s;" onclick="toggleModal(true)">
             <div
                 class="bg-zinc-900 border border-[#d4af37]/30 p-5 rounded-2xl flex items-center justify-between cursor-pointer active:scale-95 transition">
@@ -148,28 +162,24 @@
         <section class="space-y-2 animate-up" style="animation-delay: 0.3s;">
             <h2 class="text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] ml-2 mb-3">Essentials</h2>
 
-            <!-- <div class="glass-card flex items-center justify-between p-4 rounded-2xl cursor-pointer hover:bg-white/5">
+
+
+
+ {% if request.session.role == 'admin' or request.session.role == 'staff' %}
+        <button>
+ 
+            
+        </button>
+
+
+            <div class="glass-card flex items-center justify-between p-4 rounded-2xl cursor-pointer hover:bg-white/5">
                 <div class="flex items-center gap-4">
                     <i class="fas fa-heart text-rose-500 w-5 text-center"></i>
-                    <span class="text-sm font-medium">Saved Sarees (Wishlist)</span>
+                    <span class="text-sm font-medium"> <a href="{% url 'dashboard_home' %}">Go to Dashboard</a></span>
                 </div>
-                <span class="bg-zinc-800 text-[10px] px-2 py-1 rounded-full text-zinc-400">12</span>
-            </div> -->
-
-            <!-- <div class="glass-card flex items-center justify-between p-4 rounded-2xl cursor-pointer hover:bg-white/5">
-                <div class="flex items-center gap-4">
-                    <i class="fab fa-whatsapp text-emerald-500 w-5 text-center text-lg"></i>
-                    <div>
-                        <p class="text-sm font-medium">WhatsApp Updates</p>
-                        <p class="text-[10px] text-zinc-500">Order tracking & offers</p>
-                    </div>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" checked class="sr-only peer">
-                    <div class="w-10 h-5 bg-zinc-700 rounded-full peer peer-checked:bg-emerald-600 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-5"></div>
-                </label>
-            </div> -->
-
+                <span class="bg-zinc-800 text-[10px] px-2 py-1 rounded-full text-zinc-400">@@@</span>
+            </div>
+{% endif %}
 
             <div x-data="{ open: false }" class="w-full max-w-md">
                 <div @click="open = !open"
@@ -187,7 +197,7 @@
                     x-transition:enter-end="opacity-100 transform translate-y-0"
                     class="mt-2 p-4 bg-black border border-yellow-600/30 rounded-2xl shadow-xl">
 
-                    <ul class="space-y-3">
+                    <!-- <ul class="space-y-3">
                         {%for ads in addresses%}
                         <li class="flex flex-col border-b border-yellow-900/50 pb-2">
                             <span
@@ -195,12 +205,36 @@
                             <span class="text-sm text-yellow-500">{{ads.address}}</span>
                         </li>
                         {%endfor%}
-                    </ul>
+                    </ul> -->
+                    <p class="text-[10px] uppercase tracking-widest text-zinc-500 mb-3">
+    {{ addresses|length }} saved address{{ addresses|length|pluralize:"es" }}
+</p>
+<ul class="space-y-3">
+    {% for ads in addresses %}
+    <li class="flex flex-col border-b border-yellow-900/50 pb-3">
+        <span class="text-[10px] uppercase tracking-widest text-yellow-600 font-bold">
+            {{ ads.title }}
+            {% if ads.is_default %}
+            <span class="ml-2 bg-yellow-600/20 text-yellow-500 px-2 py-0.5 rounded-full">Default</span>
+            {% endif %}
+        </span>
+        <span class="text-sm text-yellow-500 whitespace-pre-line">{{ ads.address }}</span>
+        {% if ads.phone_number %}
+        <span class="text-xs text-zinc-500 mt-1"><i class="fas fa-phone mr-1"></i>{{ ads.phone_number }}</span>
+        {% endif %}
+    </li>
+    {% empty %}
+    <li class="text-sm text-zinc-500">No saved addresses yet. You can add one while placing an order.</li>
+    {% endfor %}
+</ul>
                 </div>
             </div>
 
             <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque dolore porro vel. Necessitatibus saepe laboriosam quibusdam, eveniet illo aut expedita iusto vel sint neque alias laudantium omnis aliquam recusandae commodi! -->
         </section>
+
+
+       
 
         <button
             class="w-full py-4 text-sm font-bold text-zinc-600 hover:text-red-400 transition tracking-widest uppercase">
@@ -208,32 +242,50 @@
         </button>
     </main>
 
-    <div id="fitModal" class="fixed inset-0 z-50 flex items-center justify-center px-6">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleModal(false)"></div>
-        <div class="relative bg-zinc-900 w-full max-w-sm rounded-3xl p-6 border border-zinc-800 shadow-2xl">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold">Measurement Detail</h3>
-                <i class="fas fa-times cursor-pointer" onclick="toggleModal(false)"></i>
+<div id="fitModal" class="fixed inset-0 z-50 flex items-center justify-center px-6">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleModal(false)"></div>
+    <form method="post" action="{% url 'update_profile' %}"
+        class="relative bg-zinc-900 w-full max-w-sm rounded-3xl p-6 border border-zinc-800 shadow-2xl max-h-[90vh] overflow-y-auto">
+        {% csrf_token %}
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-xl font-bold">Edit Profile</h3>
+            <i class="fas fa-times cursor-pointer" onclick="toggleModal(false)"></i>
+        </div>
+
+        <div class="space-y-4">
+            <div>
+                <label class="text-[10px] text-zinc-500 uppercase font-bold">Full Name</label>
+                <input type="text" name="full_name" value="{{ user.full_name }}" maxlength="100" required
+                    class="w-full bg-zinc-800 border-none rounded-xl p-3 mt-1 text-sm focus:ring-2 ring-[#d4af37]">
             </div>
 
-            <div class="space-y-4">
-                <div>
-                    <label class="text-[10px] text-zinc-500 uppercase font-bold">Blouse Chest Size (Inches)</label>
-                    <input type="number" placeholder="e.g. 36"
-                        class="w-full bg-zinc-800 border-none rounded-xl p-3 mt-1 text-sm focus:ring-2 ring-[#d4af37]">
-                </div>
-                <div>
-                    <label class="text-[10px] text-zinc-500 uppercase font-bold">Total Height (for Fall/Pico)</label>
-                    <input type="text" placeholder="e.g. 5' 4\"
-                        class="w-full bg-zinc-800 border-none rounded-xl p-3 mt-1 text-sm focus:ring-2 ring-[#d4af37]">
-                </div>
-                <button class="w-full gold-gradient py-3 rounded-xl font-bold text-sm shadow-lg shadow-yellow-900/20"
-                    onclick="toggleModal(false)">
-                    Save My Fit
-                </button>
+            <p class="text-[10px] text-zinc-600 uppercase font-bold tracking-widest pt-2">
+                Change password (optional)</p>
+
+            <div>
+                <label class="text-[10px] text-zinc-500 uppercase font-bold">Current Password</label>
+                <input type="password" name="old_password" autocomplete="current-password"
+                    class="w-full bg-zinc-800 border-none rounded-xl p-3 mt-1 text-sm focus:ring-2 ring-[#d4af37]">
             </div>
+            <div>
+                <label class="text-[10px] text-zinc-500 uppercase font-bold">New Password</label>
+                <input type="password" name="new_password" autocomplete="new-password"
+                    class="w-full bg-zinc-800 border-none rounded-xl p-3 mt-1 text-sm focus:ring-2 ring-[#d4af37]">
+            </div>
+            <div>
+                <label class="text-[10px] text-zinc-500 uppercase font-bold">Confirm New Password</label>
+                <input type="password" name="confirm_password" autocomplete="new-password"
+                    class="w-full bg-zinc-800 border-none rounded-xl p-3 mt-1 text-sm focus:ring-2 ring-[#d4af37]">
+            </div>
+            <p class="text-[10px] text-zinc-600">8+ characters with a letter, a number and one of @$!%*#?&</p>
+
+            <button type="submit"
+                class="w-full gold-gradient py-3 rounded-xl font-bold text-sm shadow-lg shadow-yellow-900/20">
+                Save Changes
+            </button>
         </div>
-    </div>
+    </form>
+</div>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script>
         function toggleModal(show) {
@@ -244,6 +296,7 @@
                 modal.classList.remove('active');
             }
         }
+        {% for m in messages %}{% if m.level_tag == 'error' %}toggleModal(true);{% endif %}{% endfor %}
 
     </script>
 </body>

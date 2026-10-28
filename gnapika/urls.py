@@ -49,6 +49,21 @@ urlpatterns = [
     path('search-suggestions/', views.search_suggestions, name='search_suggestions'),
     path('search/', views.search_products, name='search_products'),
     path("dashboard-upload/", views.dashboard_upload, name="dashboard_upload"),
+    path("force-password-change/", views.force_password_change, name="force_password_change"),
+    path("dashboard/", views.dashboard_home, name="dashboard_home"),
+    path("dashboard/products/<int:product_id>/edit/", views.dashboard_product_edit, name="dashboard_product_edit"),
+    path("dashboard/products/<int:product_id>/delete/", views.dashboard_product_delete, name="dashboard_product_delete"),
+    path("dashboard/staff/", views.dashboard_staff, name="dashboard_staff"),
+    path("dashboard/staff/<int:user_id>/toggle/", views.dashboard_staff_toggle, name="dashboard_staff_toggle"),
+    path("dashboard/staff/<int:user_id>/reset/", views.dashboard_staff_reset, name="dashboard_staff_reset"),
+    path("dashboard/categories/", views.dashboard_categories, name="dashboard_categories"),
+    path("dashboard/categories/<int:category_id>/edit/", views.dashboard_category_edit, name="dashboard_category_edit"),
+    path("dashboard/categories/<int:category_id>/delete/", views.dashboard_category_delete, name="dashboard_category_delete"),
+    path("dashboard/account/", views.dashboard_account, name="dashboard_account"),
+    path("profile/update/", views.update_profile, name="update_profile"),
+    path("submit-review/<int:product_id>/", views.submit_review, name="submit_review"),
+    path("dashboard/products/<int:product_id>/", views.dashboard_product_detail, name="dashboard_product_detail"),
+path("dashboard/reviews/<int:review_id>/delete/", views.dashboard_review_delete, name="dashboard_review_delete"),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

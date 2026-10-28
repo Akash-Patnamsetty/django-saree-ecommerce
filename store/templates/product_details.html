@@ -679,16 +679,20 @@
         <div class="details-section">
             <h1 class="title">{{ product.title }}</h1>
 
-            <div class="rating-row">
-                <div class="rating-badge">{{ product.rating }} <i class="fa-solid fa-star"></i></div>
-                <span style="color: #878787; font-size: 14px;">14,230 Ratings & 2,105 Reviews</span>
-            </div>
+          <div class="rating-row">
+    {% if avg_rating %}
+    <div class="rating-badge">{{ avg_rating }} <i class="fa-solid fa-star"></i></div>
+    <span style="color:#878787; font-size:14px;">{{ review_count }} review{{ review_count|pluralize }}</span>
+    {% else %}
+    <span style="color:#878787; font-size:14px;">No reviews yet</span>
+    {% endif %}
+</div>
 
-            <div class="price-row">
-                <span class="price-now">₹{{ product.price }}</span>
-                <span class="price-before">₹{{ product.old_price }}</span>
-                <span class="discount-text">{{ product.discount }}% off</span>
-            </div>
+         <div class="price-row">
+    <span class="price-now">₹{{ product.price }}</span>
+    {% if product.old_price %}<span class="price-before">₹{{ product.old_price }}</span>{% endif %}
+    {% if discount %}<span class="discount-text">{{ discount }}% off</span>{% endif %}
+</div>
 
             <div class="timer-box">
                 <i class="fa-solid fa-clock"></i> Hurry! Ends in: <b id="countdown">04h 22m 15s</b>
@@ -745,9 +749,17 @@
             <button class="btn-write-review" onclick="toggleReviewForm()">Write a Review</button>
         </div>
 
+        {% if request.session.user_id %}
+<button class="btn-write-review" onclick="toggleReviewForm()">{% if my_review %}Edit your review{% else %}Write a Review{% endif %}</button>
+{% else %}
+<a class="btn-write-review" href="{% url 'login' %}">Sign in to review</a>
+{% endif %}
+
+        
+
         <div id="review-form-container" class="review-form-card" style="display: none;">
             <h3>Share your experience</h3>
-            <form action="/submit-review/{{ product.id }}/" method="POST">
+            <form action="{% url 'submit_review' product.pk %}" method="POST">
                 {% csrf_token %}
                 <div class="rating-input">
                     <p>Rate this Saree:</p>
@@ -765,8 +777,9 @@
                     </div>
                     <p id="rating-status" style="font-size: 12px; font-weight: bold; margin-top: 5px;"></p>
                 </div>
-                <input type="text" name="headline" placeholder="Review Headline (e.g. Amazing Quality!)" required>
-                <textarea name="comment" rows="4" placeholder="Write your detailed review here..." required></textarea>
+<input type="text" name="headline" value="{{ my_review.headline|default:'' }}" placeholder="Review Headline" required>
+<textarea name="comment" rows="4" maxlength="2000" required>{{ my_review.comment|default:'' }}</textarea>
+
                 <div class="form-actions">
                     <button type="submit" class="btn-submit">Submit Review</button>
                     <button type="button" class="btn-cancel" onclick="toggleReviewForm()">Cancel</button>
@@ -777,14 +790,17 @@
         <div class="reviews-list">
             {% for review in reviews %}
             <div class="review-card">
-                <div class="review-user-info">
-                    <span class="user-badge">{{ review.user.username|slice:":1"|upper }}</span>
-                    <div>
-                        <strong>{{ review.user.username }}</strong>
-                        <span class="verified-purchase"><i class="fa-solid fa-circle-check"></i> Verified
-                            Purchase</span>
-                    </div>
-                </div>
+       <div class="review-user-info">
+    <span class="user-badge" style="display:flex; align-items:center; justify-content:center;">
+        {{ review.user.full_name|slice:":1"|upper }}
+    </span>
+    <div>
+        <strong>{{ review.user.full_name }}</strong>
+        {% if review.verified %}
+        <span class="verified-purchase"><i class="fa-solid fa-circle-check"></i> Verified Purchase</span>
+        {% endif %}
+    </div>
+</div>
                 <div class="review-rating">
                     <span class="stars">
                         {% for i in "12345" %}

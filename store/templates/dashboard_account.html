@@ -1,0 +1,382 @@
+
+{% extends "dashboard_base.html" %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+
+<style>
+    .account-page {
+        color: #f3f3f3;
+    }
+
+    .account-page h1 {
+        font-size: 28px;
+        margin: 0 0 24px;
+    }
+
+    .account-grid {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+        flex-wrap: wrap;
+    }
+
+    .account-card {
+        flex: 1;
+        min-width: 280px;
+        padding: 26px;
+        box-sizing: border-box;
+        background: #0f0f0f;
+        border: 1px solid rgba(212, 175, 55, .2);
+        border-radius: 18px;
+    }
+
+    .account-card h2 {
+        color: #D4AF37;
+        font-size: 18px;
+        margin: 0 0 24px;
+    }
+
+    .account-card label {
+        display: block;
+        color: #d4d4d4;
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .account-card input {
+        display: block;
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 18px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        border: 1px solid rgba(212, 175, 55, .2);
+        background: #171717;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+        transition: border-color .25s, box-shadow .25s;
+    }
+
+    .account-card input:focus {
+        border-color: #D4AF37;
+        box-shadow: 0 0 10px rgba(212, 175, 55, .1);
+    }
+
+    .account-card input:disabled {
+        background: #111;
+        color: #888;
+        cursor: not-allowed;
+    }
+
+    .account-card .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        padding: 13px 18px;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #D4AF37, #B8963E);
+        color: #111;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.3px;
+        cursor: pointer;
+        transition: .25s ease;
+    }
+
+    .account-card .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px rgba(212, 175, 55, .18);
+    }
+
+    /* Password field and eye icon */
+    .password-field {
+        position: relative;
+        width: 100%;
+        margin-bottom: 18px;
+    }
+
+    .account-card .password-field input {
+        width: 100%;
+        padding: 12px 48px 12px 14px;
+        margin-bottom: 0;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #D4AF37;
+        cursor: pointer;
+        z-index: 2;
+        border-radius: 5px;
+        user-select: none;
+    }
+
+    .password-toggle:hover {
+        color: #ffe18a;
+        background: rgba(212, 175, 55, .08);
+    }
+
+    .password-toggle:focus-visible {
+        outline: 2px solid #D4AF37;
+        outline-offset: 2px;
+    }
+
+    .password-hint {
+        display: block;
+        color: #888;
+        font-size: 12px;
+        line-height: 1.7;
+        margin: -2px 0 20px;
+    }
+
+    @media (max-width: 640px) {
+        .account-page h1 {
+            font-size: 23px;
+        }
+
+        .account-grid {
+            flex-direction: column;
+        }
+
+        .account-card {
+            width: 100%;
+            min-width: 0;
+            padding: 21px;
+        }
+    }
+</style>
+
+<div class="account-page">
+
+    <h1>My Account</h1>
+
+    <div class="account-grid">
+
+        <!-- PROFILE FORM -->
+        <form class="account-card" method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name="action" value="profile">
+
+            <h2>Profile Details</h2>
+
+            <label for="full_name">Full name</label>
+            <input
+                type="text"
+                id="full_name"
+                name="full_name"
+                value="{{ account.full_name }}"
+                maxlength="100"
+                required
+            >
+
+            <label for="email">Email (cannot be changed here)</label>
+            <input
+                type="text"
+                id="email"
+                value="{{ account.email }}"
+                disabled
+            >
+
+            <label for="phone">Phone number</label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value="{{ account.phone_number }}"
+                required
+            >
+
+            <label for="role">Account role</label>
+            <input
+                type="text"
+                id="role"
+                value="{{ account.get_role_display }}"
+                disabled
+            >
+
+            <button class="btn" type="submit">
+                Save Profile
+            </button>
+        </form>
+
+
+        <!-- CHANGE PASSWORD FORM -->
+        <form class="account-card" method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name="action" value="password">
+
+            <h2>Change Password</h2>
+
+            <!-- Current password -->
+            <label for="old_password">Current password</label>
+
+            <div class="password-field">
+                <input
+                    type="password"
+                    id="old_password"
+                    name="old_password"
+                    placeholder="Enter current password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <span
+                    class="password-toggle"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Show current password"
+                    aria-pressed="false"
+                    onclick="togglePassword('old_password', this)"
+                >
+                    <svg viewBox="0 0 24 24" width="21" height="21"
+                         fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </span>
+            </div>
+
+            <!-- New password -->
+            <label for="new_password">New password</label>
+
+            <div class="password-field">
+                <input
+                    type="password"
+                    id="new_password"
+                    name="new_password"
+                    placeholder="Enter new password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                >
+
+                <span
+                    class="password-toggle"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Show new password"
+                    aria-pressed="false"
+                    onclick="togglePassword('new_password', this)"
+                >
+                    <svg viewBox="0 0 24 24" width="21" height="21"
+                         fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </span>
+            </div>
+
+            <!-- Confirm password -->
+            <label for="confirm_password">Confirm new password</label>
+
+            <div class="password-field">
+                <input
+                    type="password"
+                    id="confirm_password"
+                    name="confirm_password"
+                    placeholder="Confirm new password"
+                    autocomplete="new-password"
+                    minlength="8"
+                    required
+                >
+
+                <span
+                    class="password-toggle"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Show confirm password"
+                    aria-pressed="false"
+                    onclick="togglePassword('confirm_password', this)"
+                >
+                    <svg viewBox="0 0 24 24" width="21" height="21"
+                         fill="none" stroke="currentColor"
+                         stroke-width="1.8" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true">
+                        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </span>
+            </div>
+
+            <small class="password-hint">
+                Use at least 8 characters, including a letter,
+                a number and a special character (@$!%*#?&).
+            </small>
+
+            <button class="btn" type="submit">
+                Change Password
+            </button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    function togglePassword(inputId, icon) {
+        const input = document.getElementById(inputId);
+        const isHidden = input.type === "password";
+
+        input.type = isHidden ? "text" : "password";
+
+        // Update the icon to show an open or crossed-out eye.
+        icon.innerHTML = isHidden
+            ? `<svg viewBox="0 0 24 24" width="21" height="21"
+                   fill="none" stroke="currentColor" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                 <path d="M3 3l18 18"/>
+                 <path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/>
+                 <path d="M9.9 5.2A11 11 0 0 1 12 5c6.4 0 10 7 10 7
+                          a15 15 0 0 1-3.1 3.9"/>
+                 <path d="M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7
+                          a10 10 0 0 0 4-.8"/>
+               </svg>`
+            : `<svg viewBox="0 0 24 24" width="21" height="21"
+                   fill="none" stroke="currentColor" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round"
+                   aria-hidden="true">
+                 <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                 <circle cx="12" cy="12" r="3"/>
+               </svg>`;
+
+        icon.setAttribute(
+            "aria-label",
+            isHidden ? "Hide password" : "Show password"
+        );
+
+        icon.setAttribute("aria-pressed", String(isHidden));
+    }
+
+    // Allow keyboard users to toggle the password with Enter or Space.
+    document.querySelectorAll(".password-toggle").forEach(icon => {
+        icon.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+
+                const input = this.parentElement.querySelector("input");
+                togglePassword(input.id, this);
+            }
+        });
+    });
+</script>
+
+{% endblock %}
