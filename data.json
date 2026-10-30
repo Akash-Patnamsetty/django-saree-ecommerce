@@ -1,0 +1,2725 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$f76Ujk8gXJHwdmYAGHfPQ9$V3HKkK2/pSjWeEUBDeb35XO8IWWo7mne1GPmoROyLO4=",
+    "last_login": "2026-10-29T17:10:14.745Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-04-04T02:41:46.154Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "store.product",
+  "pk": 12,
+  "fields": {
+    "title": "semi  pattu vintage saree with both side Kanchi desgin",
+    "description": "Exclusive collection semi  pattu vintage saree with both side Kanchi desgin \r\nRich contrast pallu n contrast blouse\r\nAllover saree mangalagiri checks\r\nEach colour 25 saree available\r\n",
+    "price": "1399.00",
+    "old_price": "1999.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T06:54:07Z",
+    "category": 21
+  }
+},
+{
+  "model": "store.product",
+  "pk": 13,
+  "fields": {
+    "title": "semi  pattu vintage saree with both side Kanchi desgin",
+    "description": "Exclusive collection semi  pattu vintage saree with both side Kanchi desgin \r\nRich contrast pallu n contrast blouse\r\nAllover saree mangalagiri checks",
+    "price": "1399.00",
+    "old_price": "1999.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T06:55:48Z",
+    "category": 21
+  }
+},
+{
+  "model": "store.product",
+  "pk": 15,
+  "fields": {
+    "title": "Classy green mango pattu saree desgin ",
+    "description": "Allover saree nice zari weaving butts  desgin \r\nClassy weaving creaper boader desgin  rich pallu n contrast  blouse",
+    "price": "2650.00",
+    "old_price": "3550.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T07:06:41Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 16,
+  "fields": {
+    "title": "Classy krishna blue  pattu saree desgin",
+    "description": "Allover saree nice zari weaving butts  desgin \r\nClassy weaving creaper boader desgin  rich pallu n contrast  blouse",
+    "price": "2650.00",
+    "old_price": "3559.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T13:27:07Z",
+    "category": 21
+  }
+},
+{
+  "model": "store.product",
+  "pk": 17,
+  "fields": {
+    "title": "Classy red pattu saree desgin ",
+    "description": "Allover saree nice zari weaving butts  desgin \r\nClassy weaving creaper boader desgin  rich pallu n contrast  blouse",
+    "price": "2655.00",
+    "old_price": "3550.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T13:30:10Z",
+    "category": 21
+  }
+},
+{
+  "model": "store.product",
+  "pk": 18,
+  "fields": {
+    "title": "gradient colors of  pattu saree",
+    "description": "Allover saree nice zari weaving butts  desgin \r\nClassy weaving creaper boader desgin  rich pallu n contrast  blouse",
+    "price": "2999.00",
+    "old_price": "3599.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T13:35:00Z",
+    "category": 21
+  }
+},
+{
+  "model": "store.product",
+  "pk": 19,
+  "fields": {
+    "title": "pochampally lkat style saree with white and red color",
+    "description": "Embrace timeless Indian artistry with this stunning handloom-inspired saree. Featuring a rich crimson body contrasted against a striking monochrome striped pallu, this piece is defined by its iconic \"temple\" zigzag border.",
+    "price": "2555.00",
+    "old_price": "2999.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T13:42:53Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 20,
+  "fields": {
+    "title": "tusser silk saree [light wight,classy]",
+    "description": "Embrace timeless Indian artistry with this stunning handloom-inspired saree. Featuring a rich crimson body contrasted against a striking monochrome striped pallu, this piece is defined by its iconic \"temple\" zigzag border.",
+    "price": "2555.00",
+    "old_price": "2999.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T13:45:38Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 21,
+  "fields": {
+    "title": "silk saree",
+    "description": "Embrace timeless Indian artistry with this stunning handloom-inspired saree. Featuring a rich crimson body contrasted against a striking monochrome striped pallu, this piece is defined by its iconic \"temple\" zigzag border.",
+    "price": "1999.00",
+    "old_price": "2555.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T14:36:30Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 22,
+  "fields": {
+    "title": "soft silk saree",
+    "description": "Embrace timeless Indian artistry with this stunning handloom-inspired saree. Featuring a rich crimson body contrasted against a striking monochrome striped pallu, this piece is defined by its iconic \"temple\" zigzag border.",
+    "price": "1999.00",
+    "old_price": "2555.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T14:38:46Z",
+    "category": 23
+  }
+},
+{
+  "model": "store.product",
+  "pk": 23,
+  "fields": {
+    "title": "blue color saree with red border",
+    "description": "Embrace timeless Indian artistry with this stunning handloom-inspired saree. Featuring a rich crimson body contrasted against a striking monochrome striped pallu, this piece is defined by its iconic \"temple\" zigzag border.",
+    "price": "2499.00",
+    "old_price": "2899.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T14:42:23Z",
+    "category": 21
+  }
+},
+{
+  "model": "store.product",
+  "pk": 24,
+  "fields": {
+    "title": "red colour saree with best border",
+    "description": "Embrace timeless Indian artistry with this stunning handloom-inspired saree. Featuring a rich crimson body contrasted against a striking monochrome striped pallu, this piece is defined by its iconic \"temple\" zigzag border.",
+    "price": "2999.00",
+    "old_price": "3499.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T14:44:05Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 25,
+  "fields": {
+    "title": "mysore silk zaranlines wearing desigin",
+    "description": "classy rich peacock weaving pallu n plain blouse\r\n",
+    "price": "3699.00",
+    "old_price": "3999.00",
+    "stock_quantity": 100,
+    "is_trending": false,
+    "created_at": "2026-04-11T14:52:39Z",
+    "category": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 26,
+  "fields": {
+    "title": "kota silk saree",
+    "description": "Exclusive collection  Kota silk saree\r\nAllover saree nice weaving flower weaving  butts desgin \r\nNice floral black boader desgin rich pallu n classy blouse ",
+    "price": "1299.00",
+    "old_price": "1899.00",
+    "stock_quantity": 10,
+    "is_trending": false,
+    "created_at": "2026-10-10T06:38:05Z",
+    "category": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 27,
+  "fields": {
+    "title": "kota silk saree",
+    "description": "Exclusive collection  Kota silk saree\r\n\r\nAllover saree nice weaving flower weaving  butts desgin \r\n\r\nNice floral black boader desgin rich pallu n classy blouse ",
+    "price": "1299.00",
+    "old_price": "1899.00",
+    "stock_quantity": 15,
+    "is_trending": false,
+    "created_at": "2026-10-10T06:39:03Z",
+    "category": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 28,
+  "fields": {
+    "title": " light weight Tusser saree",
+    "description": "Beautiful light weight Tusser saree \r\nAllover saree nice colourfully floral with birds desgin\r\nRich pallu n floral  blouse",
+    "price": "1799.00",
+    "old_price": "2499.00",
+    "stock_quantity": 50,
+    "is_trending": false,
+    "created_at": "2026-10-10T06:48:38Z",
+    "category": 26
+  }
+},
+{
+  "model": "store.product",
+  "pk": 29,
+  "fields": {
+    "title": " light weight Tusser",
+    "description": "Beautiful light weight Tusser saree \r\nAllover saree nice colourfully floral with birds desgin\r\nRich pallu n floral  blouse",
+    "price": "1799.00",
+    "old_price": "2455.00",
+    "stock_quantity": 50,
+    "is_trending": false,
+    "created_at": "2026-10-10T06:50:54Z",
+    "category": 26
+  }
+},
+{
+  "model": "store.product",
+  "pk": 30,
+  "fields": {
+    "title": "light weight Tusser saree ",
+    "description": "Beautiful light weight Tusser saree \r\nAllover saree nice colourfully floral with birds desgin\r\nRich pallu n floral  blouse",
+    "price": "1799.00",
+    "old_price": "2499.00",
+    "stock_quantity": 50,
+    "is_trending": false,
+    "created_at": "2026-10-10T06:52:10Z",
+    "category": 26
+  }
+},
+{
+  "model": "store.product",
+  "pk": 31,
+  "fields": {
+    "title": "mysore silk Saree",
+    "description": "Experience the timeless charm of a Mysore Silk Saree, celebrated for its luxurious texture, smooth finish, and elegant traditional appeal. Crafted from premium silk, this saree features a beautiful natural sheen and a graceful drape that enhances your beauty on every occasion.",
+    "price": "1899.00",
+    "old_price": "2799.00",
+    "stock_quantity": 30,
+    "is_trending": false,
+    "created_at": "2026-10-10T07:19:28Z",
+    "category": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 32,
+  "fields": {
+    "title": "mysore silk Saree",
+    "description": "Experience the timeless charm of a Mysore Silk Saree, celebrated for its luxurious texture, smooth finish, and elegant traditional appeal. Crafted from premium silk, this saree features a beautiful natural sheen and a graceful drape that enhances your beauty on every occasion.",
+    "price": "1899.00",
+    "old_price": "2799.00",
+    "stock_quantity": 30,
+    "is_trending": false,
+    "created_at": "2026-10-10T07:20:02Z",
+    "category": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 33,
+  "fields": {
+    "title": "mysore silk Saree",
+    "description": "Experience the timeless charm of a Mysore Silk Saree, celebrated for its luxurious texture, smooth finish, and elegant traditional appeal. Crafted from premium silk, this saree features a beautiful natural sheen and a graceful drape that enhances your beauty on every occasion.",
+    "price": "1899.00",
+    "old_price": "2799.00",
+    "stock_quantity": 23,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:27:50Z",
+    "category": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 34,
+  "fields": {
+    "title": "mysore silk Saree",
+    "description": "Experience the timeless charm of a Mysore Silk Saree, celebrated for its luxurious texture, smooth finish, and elegant traditional appeal. Crafted from premium silk, this saree features a beautiful natural sheen and a graceful drape that enhances your beauty on every occasion.",
+    "price": "1899.00",
+    "old_price": "2799.00",
+    "stock_quantity": 20,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:33:15Z",
+    "category": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 35,
+  "fields": {
+    "title": "moonga pattu Saree",
+    "description": "Discover the beauty of Moonga Pattu Sarees, where traditional elegance meets luxurious style. Perfect for weddings, festive occasions, and unforgettable moments.",
+    "price": "1799.00",
+    "old_price": "2699.00",
+    "stock_quantity": 49,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:36:30Z",
+    "category": 27
+  }
+},
+{
+  "model": "store.product",
+  "pk": 36,
+  "fields": {
+    "title": "Moonga Pattu Sarees",
+    "description": "Discover the beauty of Moonga Pattu Sarees, where traditional elegance meets luxurious style. Perfect for weddings, festive occasions, and unforgettable moments.",
+    "price": "1799.00",
+    "old_price": "2799.00",
+    "stock_quantity": 29,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:37:44Z",
+    "category": 27
+  }
+},
+{
+  "model": "store.product",
+  "pk": 37,
+  "fields": {
+    "title": "glassy one gram tissue Saree",
+    "description": "A touch of shimmer, a world of elegance! Discover the beauty of Glassy One Gram Tissue Sarees, perfect for adding a radiant glow to every special occasion.",
+    "price": "1699.00",
+    "old_price": "1999.00",
+    "stock_quantity": 22,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:42:22Z",
+    "category": 28
+  }
+},
+{
+  "model": "store.product",
+  "pk": 38,
+  "fields": {
+    "title": "glassy one gram tissue Saree",
+    "description": "A touch of shimmer, a world of elegance! Discover the beauty of Glassy One Gram Tissue Sarees, perfect for adding a radiant glow to every special occasion.",
+    "price": "1699.00",
+    "old_price": "1999.00",
+    "stock_quantity": 20,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:47:44Z",
+    "category": 28
+  }
+},
+{
+  "model": "store.product",
+  "pk": 39,
+  "fields": {
+    "title": "glassy one gram tissue Saree",
+    "description": "A touch of shimmer, a world of elegance! Discover the beauty of Glassy One Gram Tissue Sarees, perfect for adding a radiant glow to every special occasion.",
+    "price": "1699.00",
+    "old_price": "1999.00",
+    "stock_quantity": 20,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:48:06Z",
+    "category": 28
+  }
+},
+{
+  "model": "store.product",
+  "pk": 40,
+  "fields": {
+    "title": "glassy one gram tissue Saree",
+    "description": "A touch of shimmer, a world of elegance! Discover the beauty of Glassy One Gram Tissue Sarees, perfect for adding a radiant glow to every special occasion.",
+    "price": "1699.00",
+    "old_price": "1999.00",
+    "stock_quantity": 20,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:48:30Z",
+    "category": 28
+  }
+},
+{
+  "model": "store.product",
+  "pk": 41,
+  "fields": {
+    "title": "traditional colour Saree",
+    "description": "Timeless colours, traditional beauty, and effortless elegance. Discover sarees that celebrate the richness of Indian culture and make every occasion special.",
+    "price": "3299.00",
+    "old_price": "3999.00",
+    "stock_quantity": 23,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:50:48Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 42,
+  "fields": {
+    "title": "traditional colour Saree",
+    "description": "Timeless colours, traditional beauty, and effortless elegance. Discover sarees that celebrate the richness of Indian culture and make every occasion special.",
+    "price": "3299.00",
+    "old_price": "3999.00",
+    "stock_quantity": 23,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:51:07Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 43,
+  "fields": {
+    "title": "traditional colour Saree",
+    "description": "Timeless colours, traditional beauty, and effortless elegance. Discover sarees that celebrate the richness of Indian culture and make every occasion special.",
+    "price": "3299.00",
+    "old_price": "3999.00",
+    "stock_quantity": 23,
+    "is_trending": false,
+    "created_at": "2026-10-10T08:51:36Z",
+    "category": 22
+  }
+},
+{
+  "model": "store.product",
+  "pk": 44,
+  "fields": {
+    "title": "traditional colour saree",
+    "description": "Celebrate the beauty of Indian tradition with our elegant Traditional Colour Saree. Featuring rich, vibrant colours and timeless ethnic charm, this saree is perfect for festivals, weddings, family gatherings, and special occasions",
+    "price": "3299.00",
+    "old_price": "3599.00",
+    "stock_quantity": 120,
+    "is_trending": false,
+    "created_at": "2026-10-12T14:51:13Z",
+    "category": 29
+  }
+},
+{
+  "model": "store.product",
+  "pk": 45,
+  "fields": {
+    "title": "traditional colour saree",
+    "description": "Celebrate the beauty of Indian tradition with our elegant Traditional Colour Saree. Featuring rich, vibrant colours and timeless ethnic charm, this saree is perfect for festivals, weddings, family gatherings, and special occasions",
+    "price": "3299.00",
+    "old_price": "3599.00",
+    "stock_quantity": 120,
+    "is_trending": false,
+    "created_at": "2026-10-12T14:51:38Z",
+    "category": 29
+  }
+},
+{
+  "model": "store.product",
+  "pk": 46,
+  "fields": {
+    "title": "traditional colour saree",
+    "description": "Celebrate the beauty of Indian tradition with our elegant Traditional Colour Saree. Featuring rich, vibrant colours and timeless ethnic charm, this saree is perfect for festivals, weddings, family gatherings, and special occasions",
+    "price": "3299.00",
+    "old_price": "3599.00",
+    "stock_quantity": 120,
+    "is_trending": false,
+    "created_at": "2026-10-12T14:52:38Z",
+    "category": 29
+  }
+},
+{
+  "model": "store.product",
+  "pk": 47,
+  "fields": {
+    "title": "traditional colour saree",
+    "description": "Celebrate the beauty of Indian tradition with our elegant Traditional Colour Saree. Featuring rich, vibrant colours and timeless ethnic charm, this saree is perfect for festivals, weddings, family gatherings, and special occasions",
+    "price": "3299.00",
+    "old_price": "3599.00",
+    "stock_quantity": 120,
+    "is_trending": false,
+    "created_at": "2026-10-12T14:53:02Z",
+    "category": 29
+  }
+},
+{
+  "model": "store.product",
+  "pk": 48,
+  "fields": {
+    "title": "traditional colour saree",
+    "description": "Celebrate the beauty of Indian tradition with our elegant Traditional Colour Saree. Featuring rich, vibrant colours and timeless ethnic charm, this saree is perfect for festivals, weddings, family gatherings, and special occasions",
+    "price": "3299.00",
+    "old_price": "3599.00",
+    "stock_quantity": 120,
+    "is_trending": false,
+    "created_at": "2026-10-12T14:53:29Z",
+    "category": 29
+  }
+},
+{
+  "model": "store.product",
+  "pk": 49,
+  "fields": {
+    "title": "traditional colour saree",
+    "description": "Celebrate the beauty of Indian tradition with our elegant Traditional Colour Saree. Featuring rich, vibrant colours and timeless ethnic charm, this saree is perfect for festivals, weddings, family gatherings, and special occasions",
+    "price": "3299.00",
+    "old_price": "3599.00",
+    "stock_quantity": 120,
+    "is_trending": false,
+    "created_at": "2026-10-12T14:54:13Z",
+    "category": 29
+  }
+},
+{
+  "model": "store.product",
+  "pk": 50,
+  "fields": {
+    "title": "traditional colour saree",
+    "description": "Celebrate the beauty of Indian tradition with our elegant Traditional Colour Saree. Featuring rich, vibrant colours and timeless ethnic charm, this saree is perfect for festivals, weddings, family gatherings, and special occasions",
+    "price": "3299.00",
+    "old_price": "3599.00",
+    "stock_quantity": 120,
+    "is_trending": false,
+    "created_at": "2026-10-12T14:54:59Z",
+    "category": 29
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 36,
+  "fields": {
+    "product": 12,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.14.39 AM(1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 37,
+  "fields": {
+    "product": 12,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.14.39 AM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 38,
+  "fields": {
+    "product": 13,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.15.15 AM.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 39,
+  "fields": {
+    "product": 13,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.15.14 AM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 43,
+  "fields": {
+    "product": 15,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.13.54 AM.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 44,
+  "fields": {
+    "product": 15,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.13.56 AM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 45,
+  "fields": {
+    "product": 15,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10_kA0EMsm.13.54 AM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 46,
+  "fields": {
+    "product": 15,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.13.56 AM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 47,
+  "fields": {
+    "product": 16,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.10 PM (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 48,
+  "fields": {
+    "product": 16,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.13.52 AM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 49,
+  "fields": {
+    "product": 16,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.13.59 AM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 50,
+  "fields": {
+    "product": 17,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.19 PM (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 51,
+  "fields": {
+    "product": 17,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10.14.01 AM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 52,
+  "fields": {
+    "product": 17,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.24 PM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 53,
+  "fields": {
+    "product": 17,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10_sjlLWXx.14.00 AM (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 54,
+  "fields": {
+    "product": 17,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10_7lJhPVk.14.01 AM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 55,
+  "fields": {
+    "product": 18,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.36 PM (3).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 56,
+  "fields": {
+    "product": 18,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.17 PM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 57,
+  "fields": {
+    "product": 18,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.19 PM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 58,
+  "fields": {
+    "product": 18,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.37 PM (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 59,
+  "fields": {
+    "product": 19,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.35 PM (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 60,
+  "fields": {
+    "product": 19,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.35 PM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 61,
+  "fields": {
+    "product": 20,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.35 PM.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 62,
+  "fields": {
+    "product": 20,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.34 PM (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 63,
+  "fields": {
+    "product": 21,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.05 PM (1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 64,
+  "fields": {
+    "product": 21,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.05 PM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 65,
+  "fields": {
+    "product": 22,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.05 PM (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 66,
+  "fields": {
+    "product": 22,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10_trXXpcy.29.35 PM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 67,
+  "fields": {
+    "product": 22,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10_9xamn9R.29.05 PM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 68,
+  "fields": {
+    "product": 23,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.06 PM.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 69,
+  "fields": {
+    "product": 23,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.30 PM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 70,
+  "fields": {
+    "product": 24,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.06 PM (1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 71,
+  "fields": {
+    "product": 24,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.18 PM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 72,
+  "fields": {
+    "product": 24,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10_WYX7KjT.29.19 PM (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 73,
+  "fields": {
+    "product": 24,
+    "image_path": "products/WhatsApp Image 2026-04-11 at 10_lCxzK4W.14.00 AM (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 74,
+  "fields": {
+    "product": 25,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.06 PM (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 75,
+  "fields": {
+    "product": 25,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.09 PM (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 76,
+  "fields": {
+    "product": 25,
+    "image_path": "products/WhatsApp Image 2026-04-10 at 10.29.30 PM (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 77,
+  "fields": {
+    "product": 26,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.06.47.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 78,
+  "fields": {
+    "product": 26,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.06.48 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 79,
+  "fields": {
+    "product": 26,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.06.48.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 80,
+  "fields": {
+    "product": 27,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.06.47_FerZKs0.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 81,
+  "fields": {
+    "product": 27,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.06.48 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 82,
+  "fields": {
+    "product": 27,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.06.48 (3).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 83,
+  "fields": {
+    "product": 28,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.45 (1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 84,
+  "fields": {
+    "product": 28,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.45.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 85,
+  "fields": {
+    "product": 29,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.46 (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 86,
+  "fields": {
+    "product": 29,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.46 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 87,
+  "fields": {
+    "product": 29,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.45_tZlmXGQ.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 88,
+  "fields": {
+    "product": 29,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.46 (2)_rgpoIQZ.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 89,
+  "fields": {
+    "product": 30,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.46.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 90,
+  "fields": {
+    "product": 30,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.46_iBGhhmB.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 91,
+  "fields": {
+    "product": 30,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.09.45 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 92,
+  "fields": {
+    "product": 31,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.44.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 93,
+  "fields": {
+    "product": 31,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.44 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 94,
+  "fields": {
+    "product": 31,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.43.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 95,
+  "fields": {
+    "product": 31,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.38.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 96,
+  "fields": {
+    "product": 32,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.43 (1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 97,
+  "fields": {
+    "product": 32,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.36 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 98,
+  "fields": {
+    "product": 32,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.37.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 99,
+  "fields": {
+    "product": 33,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.36 (1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 100,
+  "fields": {
+    "product": 33,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.36.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 101,
+  "fields": {
+    "product": 33,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.36 (1)_DjmwUer.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 102,
+  "fields": {
+    "product": 33,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.35.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 103,
+  "fields": {
+    "product": 33,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.34.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 104,
+  "fields": {
+    "product": 33,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.35 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 105,
+  "fields": {
+    "product": 33,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.35 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 106,
+  "fields": {
+    "product": 34,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.38 (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 107,
+  "fields": {
+    "product": 34,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.38 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 108,
+  "fields": {
+    "product": 34,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.38 (2)_DdL1RWM.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 109,
+  "fields": {
+    "product": 34,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.38 (3).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 110,
+  "fields": {
+    "product": 34,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.39.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 111,
+  "fields": {
+    "product": 34,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.25.39 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 112,
+  "fields": {
+    "product": 35,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.44 (1)_bi4cAON.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 113,
+  "fields": {
+    "product": 35,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.44_DOCMrBR.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 114,
+  "fields": {
+    "product": 36,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.43 (1)_zHooQmy.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 115,
+  "fields": {
+    "product": 36,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.43 (1)_L8wjUoq.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 116,
+  "fields": {
+    "product": 36,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.26.43_ZXOsOwW.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 117,
+  "fields": {
+    "product": 37,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.51 (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 118,
+  "fields": {
+    "product": 37,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.51 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 119,
+  "fields": {
+    "product": 37,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.51 (2)_zB4Jv4O.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 120,
+  "fields": {
+    "product": 38,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.53 (1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 121,
+  "fields": {
+    "product": 38,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.53.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 122,
+  "fields": {
+    "product": 38,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.53 (1)_fHgELpS.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 123,
+  "fields": {
+    "product": 39,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.52 (3).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 124,
+  "fields": {
+    "product": 39,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.52 (3)_jarM4Ca.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 125,
+  "fields": {
+    "product": 39,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.52 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 126,
+  "fields": {
+    "product": 40,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.54.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 127,
+  "fields": {
+    "product": 40,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.54_G4nFJsB.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 128,
+  "fields": {
+    "product": 40,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.28.53 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 129,
+  "fields": {
+    "product": 41,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 130,
+  "fields": {
+    "product": 41,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35_jRJJ5h6.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 131,
+  "fields": {
+    "product": 41,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 132,
+  "fields": {
+    "product": 41,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.36 (1).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 133,
+  "fields": {
+    "product": 41,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.36 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 134,
+  "fields": {
+    "product": 42,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.37.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 135,
+  "fields": {
+    "product": 42,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.37_6cnk1ye.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 136,
+  "fields": {
+    "product": 42,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.36 (3).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 137,
+  "fields": {
+    "product": 43,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34 (1).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 138,
+  "fields": {
+    "product": 43,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34 (2).jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 139,
+  "fields": {
+    "product": 43,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34 (1)_u5xeNoY.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 140,
+  "fields": {
+    "product": 43,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 141,
+  "fields": {
+    "product": 43,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.33.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 142,
+  "fields": {
+    "product": 44,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.37_GwLZzgK.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 143,
+  "fields": {
+    "product": 44,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.36 (3)_CrZ08MI.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 144,
+  "fields": {
+    "product": 44,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.37_8B30VBR.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 145,
+  "fields": {
+    "product": 45,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34_KdzIQjl.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 146,
+  "fields": {
+    "product": 45,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34_bkPL6Cg.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 147,
+  "fields": {
+    "product": 45,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.33_U5ChiFH.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 148,
+  "fields": {
+    "product": 46,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35_HqkPmm5.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 149,
+  "fields": {
+    "product": 46,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35_PsQuUgF.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 150,
+  "fields": {
+    "product": 46,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35 (1)_pyOPzy4.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 151,
+  "fields": {
+    "product": 47,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35 (2).jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 152,
+  "fields": {
+    "product": 47,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35 (2)_78jODoh.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 153,
+  "fields": {
+    "product": 47,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.36.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 154,
+  "fields": {
+    "product": 48,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34 (1)_DF3qTH7.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 155,
+  "fields": {
+    "product": 48,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34 (1)_bX0vKku.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 156,
+  "fields": {
+    "product": 48,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.34 (2)_SSWSLwE.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 157,
+  "fields": {
+    "product": 49,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35_sSFbqjI.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 158,
+  "fields": {
+    "product": 49,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35_EiJwp6s.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 159,
+  "fields": {
+    "product": 49,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.35 (1)_Gy8LsxB.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 160,
+  "fields": {
+    "product": 50,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.36 (1)_8mMWsHu.jpeg",
+    "is_main": true
+  }
+},
+{
+  "model": "store.productimage",
+  "pk": 162,
+  "fields": {
+    "product": 50,
+    "image_path": "products/WhatsApp Image 2026-10-06 at 20.21.36 (2)_wn5YzgD.jpeg",
+    "is_main": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 16,
+  "fields": {
+    "full_name": "Akash",
+    "email": "p.akash.me10@gmail.com",
+    "phone_number": "9000920161",
+    "password": "pbkdf2_sha256$1200000$H2EXQkLZZ8pxnUP20iCndZ$WN0EECL8zXuZ7q//EHbuTPCemPpGr/T+ptGVTtBq54A=",
+    "date_joined": "2026-03-31T07:17:38Z",
+    "last_login": "2026-03-31T12:49:05Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 17,
+  "fields": {
+    "full_name": "aniket",
+    "email": "talwekar@gmail.com",
+    "phone_number": "9370969887",
+    "password": "pbkdf2_sha256$1200000$ldaeIOcdVKRXMZQYyMRs7S$X3Sqdo05T6vZVBQKEmiTU6byfGI5oaek+EmblB+OSEQ=",
+    "date_joined": "2026-03-31T16:48:21Z",
+    "last_login": "2026-03-31T16:48:45Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 18,
+  "fields": {
+    "full_name": "Akash Patnamsetty",
+    "email": "p.akashme10@gmail.com",
+    "phone_number": "9000920171",
+    "password": "pbkdf2_sha256$1200000$E2Yvy4xQNgKSL9Gmd7LXuY$+FKQrjCeQVfBfiTCREO7vNgHN2G4VwiQlEiorzBmYSE=",
+    "date_joined": "2026-04-02T11:56:33Z",
+    "last_login": "2026-04-02T11:57:21Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 19,
+  "fields": {
+    "full_name": "adi",
+    "email": "adibonthala2003@gmail.com",
+    "phone_number": "7396016754",
+    "password": "pbkdf2_sha256$1200000$u1zE3UJ7jhSbmtwNYPIlr9$PXpDVxhLXg9vG37wQ3kyZln7Q0AZ+pVfFKtYeIdRab4=",
+    "date_joined": "2026-04-03T07:20:54Z",
+    "last_login": "2026-04-03T07:21:21Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 20,
+  "fields": {
+    "full_name": "mimi",
+    "email": "p.akash10@gmail.com",
+    "phone_number": "6900092016",
+    "password": "pbkdf2_sha256$1200000$gt5LgrPsUc8bmRlqttpNvG$wdtUfl0w4qeuuNbgwMamD5YgNOlN7nT0vNjQJEWV7OI=",
+    "date_joined": "2026-04-03T12:42:23Z",
+    "last_login": "2026-04-03T12:42:35Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 21,
+  "fields": {
+    "full_name": "akki",
+    "email": "p.akash@gmail.com",
+    "phone_number": "9100920161",
+    "password": "pbkdf2_sha256$1200000$G9NNo9moqpRp0dwRMxCxgx$qyx/QJCKiH9IvcEdkMChuqGjazx0tboxKWQnMy3khXw=",
+    "date_joined": "2026-04-05T09:39:28Z",
+    "last_login": "2026-04-05T09:39:50Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 22,
+  "fields": {
+    "full_name": "Anji",
+    "email": "pakash10@gmail.com",
+    "phone_number": "9200920161",
+    "password": "pbkdf2_sha256$1200000$sgzKTfAkHLzYXL4k6Uugvu$hMxI1h6pxPWfyMv5Uxt38RJ8fvLY61tXpVr3JdyKVy4=",
+    "date_joined": "2026-04-05T12:21:00Z",
+    "last_login": "2026-04-05T12:21:52Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 23,
+  "fields": {
+    "full_name": "Sarath chandra",
+    "email": "saraththeruler33@gmail.com",
+    "phone_number": "07386568606",
+    "password": "pbkdf2_sha256$1200000$mTqyAxqOgjAYmX9RKVQpV5$zqPY+3smyDn7qz9kouB1//mS82VAw9m0AbYQgeYeZSo=",
+    "date_joined": "2026-04-05T14:23:30Z",
+    "last_login": "2026-04-05T14:23:46Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 24,
+  "fields": {
+    "full_name": "Khalifunnisa Begum",
+    "email": "unnisa143@gmail.com",
+    "phone_number": "1111111111",
+    "password": "pbkdf2_sha256$1200000$N2cA0TcC4BJnMe3saL6I7M$ANCKOkTHwlCsQ5So1Alkbkcc5FLUj10tnFawKHCMO4E=",
+    "date_joined": "2026-04-05T14:48:02Z",
+    "last_login": "2026-04-05T14:48:22Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 25,
+  "fields": {
+    "full_name": "abc",
+    "email": "abc@jfnksafnckla",
+    "phone_number": "123",
+    "password": "pbkdf2_sha256$1200000$Tdg1jqRZtnrKBog4hIZZfx$dqfSYCuTHPrWbLClWaM4ZFHdmcGS5VwEYWYNBuVHhOw=",
+    "date_joined": "2026-04-05T14:51:24Z",
+    "last_login": null,
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 26,
+  "fields": {
+    "full_name": "a",
+    "email": "1111111111@gsafsdf",
+    "phone_number": "1",
+    "password": "pbkdf2_sha256$1200000$mni20PLgOeGj7ob1lKzsHo$Sq8sbDGMaw54vcA56TJgAE3J7c86BdMTUBdL9othWlE=",
+    "date_joined": "2026-04-05T14:54:22Z",
+    "last_login": null,
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 27,
+  "fields": {
+    "full_name": "Akash Patnamsetty",
+    "email": "p.a@com",
+    "phone_number": "11111",
+    "password": "pbkdf2_sha256$1200000$uFJc7NL1qlUtUK55OLIeQu$DTQ+k13vQnO3qT8kwqka+f1DS8JNV753zagi67Ag+rQ=",
+    "date_joined": "2026-04-05T14:55:29Z",
+    "last_login": null,
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 28,
+  "fields": {
+    "full_name": "akki",
+    "email": "p.aksh10@gmail.com",
+    "phone_number": "9000990161",
+    "password": "pbkdf2_sha256$1200000$hAil3PBQiHywTazJph6ZYu$ptBbBCHBU6XUdva+t6tPlJ/C5akwgpqOcAlBeGJhi10=",
+    "date_joined": "2026-04-05T15:19:41Z",
+    "last_login": "2026-04-05T15:19:59Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 29,
+  "fields": {
+    "full_name": "asd",
+    "email": "aaa@gmail.com",
+    "phone_number": "9999999999",
+    "password": "pbkdf2_sha256$1200000$v2LzRQ8YFAJJJUcHLej7vr$INu4ac6i0GuEy+NTohP8wXjP1E3V2d0XsgUg8fPSniE=",
+    "date_joined": "2026-04-05T16:02:25Z",
+    "last_login": "2026-04-05T16:02:50Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 30,
+  "fields": {
+    "full_name": "Dinesh Nagandla",
+    "email": "dineshnagandla0@gmail.com",
+    "phone_number": "7032970626",
+    "password": "pbkdf2_sha256$1200000$IGFkCqkFDHC4kr5nQ73hwF$sodlmUAbDgq6ihoJxH5uQO4lpsaQZSrLaLgJx0eruSM=",
+    "date_joined": "2026-04-05T17:21:19Z",
+    "last_login": "2026-10-12T14:57:42Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 31,
+  "fields": {
+    "full_name": "Akash Patnamsetty",
+    "email": "p.akash.me10@gmailvv.com",
+    "phone_number": "9000920111",
+    "password": "pbkdf2_sha256$1200000$1Y6io7hP7b2CyzhORZ9LWW$Kc8koGgx8I+AfO9rcu0uWGLz3X1moOFXgAcwzR6BNPQ=",
+    "date_joined": "2026-04-05T17:36:03Z",
+    "last_login": "2026-04-05T17:36:15Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 32,
+  "fields": {
+    "full_name": "Akash Patnamsetty",
+    "email": "akash@gmail.com",
+    "phone_number": "9898123223",
+    "password": "pbkdf2_sha256$1200000$Tz2hoenGwujV9qUt3UxRB2$uxoj5nxT+3r/qA6gwBvJAptDSD2ED+OyXRh/DbujQEw=",
+    "date_joined": "2026-04-06T12:02:09Z",
+    "last_login": "2026-04-06T12:02:24Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 33,
+  "fields": {
+    "full_name": "King",
+    "email": "mrxman@gmail.com",
+    "phone_number": "9143262752",
+    "password": "pbkdf2_sha256$1200000$RfNYDqAhQE68OngjNZtcLA$tiwlJd0bycyGiDYqgsX1xg60Y/52Ubn2axmxUM5heT4=",
+    "date_joined": "2026-04-10T08:47:15Z",
+    "last_login": "2026-04-10T08:48:14Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 34,
+  "fields": {
+    "full_name": "raiden",
+    "email": "raiden@gamil.com",
+    "phone_number": "9876543211",
+    "password": "pbkdf2_sha256$1200000$msRHtjO5di0r2is6VkzAKA$QRnjVtaMa+0icWk50h1ORWnXMdxs9HOo+B+HZ1RkXD0=",
+    "date_joined": "2026-05-01T05:16:40Z",
+    "last_login": "2026-05-01T05:17:11Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 35,
+  "fields": {
+    "full_name": "Akash Patnamsetty customer",
+    "email": "p.akash.me@gmail.com",
+    "phone_number": "9398841516",
+    "password": "pbkdf2_sha256$600000$1hYeVXqUxveDghcOHxyoCr$P8ebs/YPfOFrMIQBzoE28MX/FWWUcJvx8n5wA5v2kUU=",
+    "date_joined": "2026-10-12T16:00:09Z",
+    "last_login": "2026-10-18T05:29:31.447Z",
+    "is_active": true,
+    "role": "customer",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 36,
+  "fields": {
+    "full_name": "admin",
+    "email": "admin@example.com",
+    "phone_number": "9876501234",
+    "password": "pbkdf2_sha256$600000$XmyFurrLaRDTjeua8MnZ8w$N4l/dqsA8ysfRw9b1x+jCGXPMC08oN/cSxHCHzOZU6E=",
+    "date_joined": "2026-10-17T10:17:30.309Z",
+    "last_login": "2026-10-30T15:19:25.576Z",
+    "is_active": true,
+    "role": "admin",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 37,
+  "fields": {
+    "full_name": "Akash Patnamsetty",
+    "email": "patnamsetty@gmail.com",
+    "phone_number": "9000920160",
+    "password": "pbkdf2_sha256$600000$i9o1xLvPCPGyxSvj8e7nCp$hTXOCtwHxVOnt0HX/vNukQSa/YvUPJA81bby+E5GGKY=",
+    "date_joined": "2026-10-17T11:30:21.610Z",
+    "last_login": "2026-10-17T11:42:14.756Z",
+    "is_active": true,
+    "role": "staff",
+    "must_change_password": false
+  }
+},
+{
+  "model": "store.users",
+  "pk": 38,
+  "fields": {
+    "full_name": "Akash Patnamsetty",
+    "email": "patnamakash@gmail.com",
+    "phone_number": "9900920161",
+    "password": "pbkdf2_sha256$600000$m67bn8bSrn70C343L5qNZL$Q3z9DJkN/3XhSIUcfhnhsozuvB4k9TUq1dEmxTBOLgI=",
+    "date_joined": "2026-10-17T11:43:53.266Z",
+    "last_login": null,
+    "is_active": true,
+    "role": "staff",
+    "must_change_password": true
+  }
+},
+{
+  "model": "store.address",
+  "pk": 1,
+  "fields": {
+    "user": 16,
+    "title": "Home",
+    "address": "H.No 4-12, Main Road, Guntur, Andhra Pradesh 522001",
+    "phone_number": "9876543210",
+    "is_default": true
+  }
+},
+{
+  "model": "store.address",
+  "pk": 2,
+  "fields": {
+    "user": 17,
+    "title": "Office",
+    "address": "Plot No. 45, Tech Park, Hi-Tech City, Hyderabad 500081",
+    "phone_number": "8765432109",
+    "is_default": true
+  }
+},
+{
+  "model": "store.address",
+  "pk": 3,
+  "fields": {
+    "user": 18,
+    "title": "Work",
+    "address": "Flat 202, Sunshine Apartments, Vijayawada 520010",
+    "phone_number": "7654321098",
+    "is_default": true
+  }
+},
+{
+  "model": "store.address",
+  "pk": 4,
+  "fields": {
+    "user": 19,
+    "title": "Home",
+    "address": "Door No 10-5, Jubilee Hills, Hyderabad 500033",
+    "phone_number": "9988776655",
+    "is_default": true
+  }
+},
+{
+  "model": "store.address",
+  "pk": 5,
+  "fields": {
+    "user": 20,
+    "title": "College",
+    "address": "Girls Hostel Block A, JNTUK Campus, Kakinada 533003",
+    "phone_number": "8877665544",
+    "is_default": true
+  }
+},
+{
+  "model": "store.address",
+  "pk": 6,
+  "fields": {
+    "user": 16,
+    "title": "Secondary",
+    "address": "123 New Street, Guntur",
+    "phone_number": "9123456789",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 7,
+  "fields": {
+    "user": 17,
+    "title": "Home",
+    "address": "Flat 402, Sai Residency, Ameerpet, Hyderabad 500038",
+    "phone_number": "9848012345",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 8,
+  "fields": {
+    "user": 18,
+    "title": "Home",
+    "address": "D.No 5-88, Arundelpet 3rd Line, Guntur 522002",
+    "phone_number": "9908054321",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 9,
+  "fields": {
+    "user": 19,
+    "title": "Work",
+    "address": "Mindspace IT Park, Building 12, Madhapur, Hyderabad 500081",
+    "phone_number": "7702211223",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 10,
+  "fields": {
+    "user": 20,
+    "title": "Home",
+    "address": "H.No 12/A, Near Clock Tower, Anantapur 515001",
+    "phone_number": "9440055667",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 11,
+  "fields": {
+    "user": 16,
+    "title": "Office",
+    "address": "IT Park, Phase 2, Mangalagiri, Andhra Pradesh 522503",
+    "phone_number": "9123456780",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 12,
+  "fields": {
+    "user": 16,
+    "title": "Warehouse",
+    "address": "Plot 88, Industrial Estate, Guntur 522005",
+    "phone_number": "9123456781",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 13,
+  "fields": {
+    "user": 17,
+    "title": "Parents Home",
+    "address": "Door No 5-1, Main Bazaar, Vijayawada 520001",
+    "phone_number": "8765400001",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 14,
+  "fields": {
+    "user": 17,
+    "title": "Gym Address",
+    "address": "FitLife Center, Banjara Hills, Hyderabad 500034",
+    "phone_number": "8765400002",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 15,
+  "fields": {
+    "user": 18,
+    "title": "Studio",
+    "address": "Room 204, Creative Block, Film City, Hyderabad 500096",
+    "phone_number": "7654300003",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 16,
+  "fields": {
+    "user": 18,
+    "title": "Secondary Office",
+    "address": "Sigma Tech Park, Whitefield, Bengaluru 560066",
+    "phone_number": "7654300004",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 17,
+  "fields": {
+    "user": 19,
+    "title": "Farmhouse",
+    "address": "Survey No. 112, Chevella Road, Vikarabad 501101",
+    "phone_number": "9988700005",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 18,
+  "fields": {
+    "user": 19,
+    "title": "Sister Residence",
+    "address": "H.No 9-44, Lalapet, Secunderabad 500017",
+    "phone_number": "9988700006",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 19,
+  "fields": {
+    "user": 20,
+    "title": "Internship Office",
+    "address": "T-Hub 2.0, Madhapur, Hyderabad 500081",
+    "phone_number": "8877600007",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 20,
+  "fields": {
+    "user": 20,
+    "title": "Permanent Address",
+    "address": "15/342, Nehru Road, Kurnool, Andhra Pradesh 518001",
+    "phone_number": "8877600008",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 21,
+  "fields": {
+    "user": 21,
+    "title": "Akash Patnamsetty",
+    "address": "Gunter",
+    "phone_number": "09000920161",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 22,
+  "fields": {
+    "user": 29,
+    "title": "a",
+    "address": "v",
+    "phone_number": "1",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 23,
+  "fields": {
+    "user": 31,
+    "title": "Akash Patnamsetty",
+    "address": "Gunter",
+    "phone_number": "9000920161",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 24,
+  "fields": {
+    "user": 22,
+    "title": "Akash Patnamsetty",
+    "address": "Gunter",
+    "phone_number": "09000920161",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 25,
+  "fields": {
+    "user": 32,
+    "title": "Akash Patnamsetty",
+    "address": "Gunter",
+    "phone_number": "09000920161",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 26,
+  "fields": {
+    "user": 23,
+    "title": "sarath chandra",
+    "address": "7-142/1  yadlapalli",
+    "phone_number": "07386568606",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 27,
+  "fields": {
+    "user": 33,
+    "title": "Koushik",
+    "address": "Guntur, reddy hostel",
+    "phone_number": "9124528566",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 28,
+  "fields": {
+    "user": 30,
+    "title": "Dinesh Nagandla",
+    "address": "5-640/4 kummara colony 1st floor ",
+    "phone_number": "7032970626",
+    "is_default": false
+  }
+},
+{
+  "model": "store.address",
+  "pk": 29,
+  "fields": {
+    "user": 35,
+    "title": "Akash Patnamsetty",
+    "address": "1/319/1,mother teresa colony,chilakaluripet",
+    "phone_number": "09000920161",
+    "is_default": false
+  }
+},
+{
+  "model": "store.category",
+  "pk": 21,
+  "fields": {
+    "name": "VYKUNTAPURAM ",
+    "category_image": "category_images/WhatsApp Image 2026-04-11 at 10.15.15 AM.jpeg",
+    "created_at": "2026-04-11T06:51:28Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 22,
+  "fields": {
+    "name": "Traditinal colour combination",
+    "category_image": "category_images/WhatsApp Image 2026-04-11 at 10.14.00 AM (2).jpeg",
+    "created_at": "2026-04-11T06:56:18Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 23,
+  "fields": {
+    "name": "silk sarees",
+    "category_image": "category_images/WhatsApp Image 2026-04-10 at 10.29.05 PM (2).jpeg",
+    "created_at": "2026-04-11T14:37:24Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 24,
+  "fields": {
+    "name": "mysore silk ",
+    "category_image": "category_images/WhatsApp Image 2026-04-10 at 10.29.06 PM (2).jpeg",
+    "created_at": "2026-04-11T14:45:30Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 25,
+  "fields": {
+    "name": "  Kota silk saree",
+    "category_image": "category_images/WhatsApp Image 2026-10-06 at 20.06.47.jpeg",
+    "created_at": "2026-10-10T06:30:50Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 26,
+  "fields": {
+    "name": " light weight Tusser saree ",
+    "category_image": "category_images/WhatsApp Image 2026-10-06 at 20.09.45 (1).jpeg",
+    "created_at": "2026-10-10T06:41:56Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 27,
+  "fields": {
+    "name": "moonga pattu Saree",
+    "category_image": "category_images/WhatsApp Image 2026-10-06 at 20.26.44 (1).jpeg",
+    "created_at": "2026-10-10T08:34:39Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 28,
+  "fields": {
+    "name": "glassy one gram tissue Saree",
+    "category_image": "category_images/WhatsApp Image 2026-10-06 at 20.28.51.jpeg",
+    "created_at": "2026-10-10T08:40:11Z"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 29,
+  "fields": {
+    "name": "traditional colour Saree",
+    "category_image": "category_images/WhatsApp Image 2026-10-06 at 20.21.35.jpeg",
+    "created_at": "2026-10-10T08:49:33Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 39,
+  "fields": {
+    "user": 33,
+    "product": 22,
+    "quantity": 1,
+    "added_at": "2026-04-12T14:02:40Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 40,
+  "fields": {
+    "user": 34,
+    "product": 24,
+    "quantity": 1,
+    "added_at": "2026-05-01T05:18:09Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 41,
+  "fields": {
+    "user": 30,
+    "product": 25,
+    "quantity": 1,
+    "added_at": "2026-09-23T15:55:02Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 42,
+  "fields": {
+    "user": 30,
+    "product": 23,
+    "quantity": 1,
+    "added_at": "2026-09-23T16:25:22Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 43,
+  "fields": {
+    "user": 30,
+    "product": 22,
+    "quantity": 1,
+    "added_at": "2026-09-23T16:25:25Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 44,
+  "fields": {
+    "user": 30,
+    "product": 50,
+    "quantity": 1,
+    "added_at": "2026-10-12T14:57:45Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 45,
+  "fields": {
+    "user": 30,
+    "product": 47,
+    "quantity": 1,
+    "added_at": "2026-10-12T14:57:47Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 46,
+  "fields": {
+    "user": 30,
+    "product": 45,
+    "quantity": 1,
+    "added_at": "2026-10-12T14:57:54Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 47,
+  "fields": {
+    "user": 30,
+    "product": 34,
+    "quantity": 1,
+    "added_at": "2026-10-12T14:57:57Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 88,
+  "fields": {
+    "user": 35,
+    "product": 48,
+    "quantity": 1,
+    "added_at": "2026-10-17T03:58:31.955Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 89,
+  "fields": {
+    "user": 35,
+    "product": 50,
+    "quantity": 1,
+    "added_at": "2026-10-17T08:52:50.954Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 90,
+  "fields": {
+    "user": 35,
+    "product": 49,
+    "quantity": 1,
+    "added_at": "2026-10-17T08:52:52.375Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 91,
+  "fields": {
+    "user": 35,
+    "product": 47,
+    "quantity": 1,
+    "added_at": "2026-10-17T08:52:54.637Z"
+  }
+},
+{
+  "model": "store.cart",
+  "pk": 92,
+  "fields": {
+    "user": 35,
+    "product": 45,
+    "quantity": 1,
+    "added_at": "2026-10-17T13:04:29.914Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 4,
+  "fields": {
+    "user_id": 16,
+    "address_id": 1,
+    "total_amount": "500.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T13:56:11Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 7,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:32:09Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 8,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:34:00Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 9,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:36:20Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 10,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:36:25Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 11,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:36:54Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 12,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:45:36Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 13,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:46:10Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 14,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:46:51Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 15,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "23992.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:50:14Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 16,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "23992.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:53:24Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 17,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "23992.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T18:54:38Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 18,
+  "fields": {
+    "user_id": 31,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T19:17:16Z"
+  }
+},
+{
+  "model": "store.order",
+  "pk": 19,
+  "fields": {
+    "user_id": 22,
+    "address_id": 1,
+    "total_amount": "2999.00",
+    "payment_method": "COD",
+    "payment_status": "Pending",
+    "razorpay_order_id": null,
+    "created_at": "2026-04-05T20:21:47Z"
+  }
+}
+]
