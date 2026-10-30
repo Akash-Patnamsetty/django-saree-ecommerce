@@ -33,34 +33,25 @@ class Command(BaseCommand):
         parser.add_argument("--email", required=True)
         parser.add_argument("--name", required=True)
         parser.add_argument("--phone", required=True)
-
+        
+        
     def handle(self, *args, **options):
+        import os
         email = options["email"].strip().lower()
         name = options["name"].strip()
         phone = options["phone"].strip()
+        password = os.environ.get("ADMIN_PASSWORD") or generate_password()
 
-        if Users.objects.filter(email__iexact=email).exists():
-            raise CommandError(f"A user with email {email} already exists.")
-        if Users.objects.filter(phone_number=phone).exists():
-            raise CommandError(f"A user with phone {phone} already exists.")
+        user = Users.objects.filter(email__iexact=email).first()
+        if user is None:
+            user = Users(email=email, date_joined=timezone.now())
 
-        password = generate_password()
+        user.full_name = name
+        user.phone_number = phone
+        user.password = make_password(password)
+        user.is_active = True
+        user.role = Users.ROLE_ADMIN
+        user.must_change_password = False
+        user.save()
 
-        Users.objects.create(
-            full_name=name,
-            email=email,
-            phone_number=phone,
-            password=make_password(password),  # hashed, never stored as plain text
-            date_joined=timezone.now(),
-            is_active=True,
-            role=Users.ROLE_ADMIN,
-            must_change_password=True,
-        )
-
-        self.stdout.write(self.style.SUCCESS("Admin account created."))
-        self.stdout.write(f"  Email:    {email}")
-        self.stdout.write(f"  Password: {password}")
-        self.stdout.write(self.style.WARNING(
-            "This password is shown ONCE. Hand it over via a password manager, "
-            "not chat or email. It must be changed at first login."
-        ))
+        self.stdout.write(self.style.SUCCESS(f"Admin ready: {email}"))
